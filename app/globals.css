@@ -22,3 +22,23 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  color: white;
+}
+.status-processing {
+  background-color: #fbbf24;
+}
+.status-delivered {
+  background-color: #10b981;
+}
+.status-pending {
+  background-color: #ef4444;
+}
+.status-shipped {
+  background-color: #3b82f6;
+}
