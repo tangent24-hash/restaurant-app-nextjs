@@ -21,6 +21,7 @@ import { toast } from "react-toastify"; // Import Toastify components
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import { useRouter } from "next/navigation";
 import CheckoutForm from "@/components/checkout/checkoutForm";
+import withAuth from "@/authentication/withAuth";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -218,4 +219,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default withAuth(CheckoutPage);

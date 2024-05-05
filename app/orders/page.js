@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import getOrders from "@/lib/getOrders";
 import Link from "next/link";
+import withAuth from "@/authentication/withAuth";
 
 const statusStyles = {
   processing: "bg-yellow-400",
@@ -187,4 +188,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default withAuth(OrdersPage);

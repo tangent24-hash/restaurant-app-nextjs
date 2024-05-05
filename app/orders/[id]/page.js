@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import getOrderDetails from "@/lib/getOrderDetails";
 import getUserAddress from "@/lib/getUserAddress";
+import withAuth from "@/authentication/withAuth";
 
 const OrderDetailsPage = ({ params }) => {
   const orderId = params.id;
@@ -131,4 +132,4 @@ const OrderDetailsPage = ({ params }) => {
   );
 };
 
-export default OrderDetailsPage;
+export default withAuth(OrderDetailsPage);

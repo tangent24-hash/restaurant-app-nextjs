@@ -10,8 +10,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
+import withAuth from "@/authentication/withAuth";
 
 const CartItem = styled(Paper)(({ theme }) => ({
   display: "grid",
@@ -45,7 +46,7 @@ const CartContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export default function CartPage() {
+const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -180,4 +181,6 @@ export default function CartPage() {
       </Box>
     </CartContainer>
   );
-}
+};
+
+export default withAuth(CartPage);

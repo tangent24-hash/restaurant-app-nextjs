@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
     if (response.status === 201) {
       setUser(data.user);
-      navigate(-1);
+      router.push(-1);
     }
   };
 
@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
 
     if (response.status === 200) {
       setUser(null);
+      router.push("/");
     }
   };
 
@@ -126,13 +127,13 @@ export const AuthProvider = ({ children }) => {
         getUser();
       }
     }
-
-    if (loading) {
+    if ((loading && user) || response.status !== 200) {
       setLoading(false);
     }
   };
 
   let contextData = {
+    loading: loading,
     user: user,
     loginError: loginError,
     loginUser: loginUser,
