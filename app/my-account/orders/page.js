@@ -138,7 +138,7 @@ const OrdersPage = () => {
         </div>
         <div className="w-full lg:w-3/4">
           {filteredOrders.map((order) => (
-            <Link href={`/orders/${order.id}`} key={order.id}>
+            <Link href={`/my-account/orders/${order.id}`} key={order.id}>
               <Card className="mb-4 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="relative">
                   <Typography variant="subtitle2" className="text-sm">

@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
     if (response.status === 201) {
       setUser(data.user);
-      router.push(-1);
+      router.back();
     }
   };
 

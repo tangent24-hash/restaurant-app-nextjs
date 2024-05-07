@@ -133,13 +133,7 @@ const CartPage = () => {
       <Typography variant="h4" component="h1" gutterBottom>
         Shopping Cart
       </Typography>
-      {/* <CartItem style={{ fontWeight: "normal", backgroundColor: "#e0e0e0", sm: "hide", md: "hidden" }}>
-        <div></div>
-        <div></div>
-        <div>Price</div>
-        <div>Quantity</div>
-        <div></div>
-      </CartItem> */}
+
       {cartItems.map((item) => (
         <CartItem key={item.id} elevation={3}>
           <Image src={item.food_image} alt={item.name} width={80} height={80} />
@@ -168,17 +162,24 @@ const CartPage = () => {
           </IconButton>
         </CartItem>
       ))}
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
-        <Typography variant="h6">Total: ${calculateTotal()}</Typography>
-        <Button
-          variant="contained"
-          color="error"
-          sx={{ backgroundColor: "darkslategray" }}
-          href="/checkout"
-        >
-          Proceed to Checkout
-        </Button>
-      </Box>
+      {(cartItems.length === 0 && (
+        <Typography variant="h5" sx={{ color: "darkslategray" }}>
+          Your cart is empty
+        </Typography>
+      )) ||
+        (cartItems.length > 0 && (
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+            <Typography variant="h6">Total: ${calculateTotal()}</Typography>
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ backgroundColor: "darkslategray" }}
+              href="/checkout"
+            >
+              Proceed to Checkout
+            </Button>
+          </Box>
+        ))}
     </CartContainer>
   );
 };

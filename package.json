@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.3",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@stripe/react-stripe-js": "^2.7.0",
@@ -25,7 +26,8 @@
     "react-icons": "^5.0.1",
     "react-toastify": "^10.0.5",
     "react-use": "^17.5.0",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "postcss": "^8",

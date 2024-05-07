@@ -8,29 +8,21 @@ const withAuth = (Component) => {
     let { user, loading } = useContext(AuthContext);
     const router = useRouter();
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // Local state for authentication
-
-    useEffect(() => {
-      // Update local state based on user and loading from context
-      if (user) {
-        setIsAuthenticated(true);
-      }
-    }, [user]); // Re-run on changes to user or loading
-    console.log("user", user);
-    console.log("loading", loading);
-    console.log("isAuthenticated", isAuthenticated);
-
-    if (!loading) {
+    if (user || !loading) {
       // Render based on authentication state (after loading)
-      return isAuthenticated ? (
-        <Component {...props} user={user} /> // Pass user data as a prop
+      return user ? (
+        <Component {...props} /> // Pass user data as a prop
       ) : (
         router.push("/login") // Redirect to login if not authenticated
       );
     }
 
     // Display loading indicator while waiting for user data
-    return <Loading />;
+    return (
+      <div className="flex justify-center items-center h-screen p-4">
+        <Loading />
+      </div>
+    );
   };
 };
 
