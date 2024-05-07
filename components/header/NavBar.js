@@ -176,16 +176,31 @@ export default function NavBar() {
           />
           <SearchIcon />
         </Search>
-        <IconButton color="inherit" href="/cart">
-          <ShoppingCart />
+        <IconButton color="inherit" href="/cart" style={{ fontSize: "medium" }}>
+          <ShoppingCart /> Cart
+        </IconButton>
+        <IconButton
+          color="inherit"
+          href="/my-account/orders"
+          style={{ fontSize: "medium" }}
+        >
+          Orders
         </IconButton>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           {user ? (
             <>
-              <IconButton color="inherit" href="/account">
-                <AccountCircle />
+              <IconButton
+                color="inherit"
+                href="/my-account/profile"
+                style={{ fontSize: "medium" }}
+              >
+                <AccountCircle /> Profile
               </IconButton>
-              <IconButton color="inherit" onClick={logoutUser}>
+              <IconButton
+                color="inherit"
+                onClick={logoutUser}
+                style={{ fontSize: "medium" }}
+              >
                 <Logout />
               </IconButton>
             </>

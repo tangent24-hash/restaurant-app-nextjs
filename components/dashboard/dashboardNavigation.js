@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter, usePathname } from "next/navigation";
 
 // Define the SideNav component
-const SideNav = () => {
+const DashboardNavigation = () => {
   const [selectedPage, setSelectedPage] = useState(""); // Default selected page
 
   const router = useRouter();
@@ -15,7 +15,7 @@ const SideNav = () => {
   // Function to handle navigation and styling of selected item
   const handleNavigation = (page) => {
     setSelectedPage(page);
-    router.push(`/my-account/${page}`);
+    router.push(`/dashboard/${page}`);
   };
 
   // Effect to set the selected page based on the current route
@@ -25,7 +25,7 @@ const SideNav = () => {
   }, [path, setSelectedPage]);
 
   // Define navigation items
-  const navItems = ["address", "password", "profile", "orders"];
+  const navItems = ["foods", "orders", "users"];
 
   return (
     <div className="w-full md:w-60">
@@ -56,4 +56,4 @@ const SideNav = () => {
   );
 };
 
-export default SideNav;
+export default DashboardNavigation;
