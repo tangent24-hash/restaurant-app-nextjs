@@ -1,12 +1,10 @@
-import Hero from "@/components/home/Hero";
-import Promotions from "@/components/home/Promotions";
 import FoodItems from "@/components/home/foods";
+import HeroSection from "@/components/home/heroSection";
 
 const Page = () => {
   return (
     <div>
-      <Hero />
-      <Promotions />
+      <HeroSection />
       <FoodItems />
     </div>
   );

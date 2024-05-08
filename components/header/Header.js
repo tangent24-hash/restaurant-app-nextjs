@@ -1,8 +1,6 @@
 import { Box, Link } from "@mui/material";
 import NavBar from "./NavBar";
 import { TopBar } from "./TopBar";
-// import AnnouncementBar from "./AnnouncementBar";
-import Search from "./Search";
 
 const Header = () => {
   return (

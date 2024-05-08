@@ -55,10 +55,10 @@ const Hero = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-1 items-end justify-start">
+        <div className="flex flex-1 items-center justify-start">
           <Image
             priority
-            src="/assets/hero.webp"
+            src="/assets/foods/hero/promo-banner2.jpeg"
             alt="hero"
             quality={100}
             width={550}

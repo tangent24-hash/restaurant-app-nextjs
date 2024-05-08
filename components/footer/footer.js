@@ -11,8 +11,8 @@ import {
 const socialMedias = [
   [BsInstagram, "https://instagram.com"],
   [BsTwitter, "https://twitter.com"],
-  [BsFacebook, "https://facebook.com"],
-  [BsLinkedin, "https://linkedin.com"],
+  [BsFacebook, "https://facebook.com/sr.sohan.1"],
+  [BsLinkedin, "https://linkedin.com/in/sohanur1"],
 ];
 
 const Footer = () => {
@@ -20,26 +20,26 @@ const Footer = () => {
     {
       label: "company",
       links: [
-        ["about", "/about"],
-        ["termOfUse", "/term-of-use"],
-        ["privacyPolicy", "/privacy-policy"],
-        ["howItWorks", "/how-works"],
-        ["contactUs", "/contact-us"],
+        ["About", "/about"],
+        ["Term Of Use", "/term-of-use"],
+        ["privacy Policy", "/privacy-policy"],
+        ["How It Works", "/how-works"],
+        ["Contact Us", "/contact-us"],
       ],
     },
     {
-      label: "support",
+      label: "Support",
       links: [
-        ["supportCareer", "/support"],
-        ["service", "/24-service"],
-        ["quickChat", "/quick-chat"],
+        ["Support Career", "/support"],
+        ["Service", "/24-service"],
+        ["Quick Chat", "/quick-chat"],
       ],
     },
     {
-      label: "contact",
+      label: "Contact",
       links: [
-        ["whatsapp", "/whatsapp"],
-        ["support", "/24-service"],
+        ["Whatsapp", "/whatsapp"],
+        ["Support", "/24-service"],
       ],
     },
   ];
@@ -105,7 +105,7 @@ const Footer = () => {
               <BsGithub size="1.25rem" />
             </Link>
             <p>
-              {`${"createdBy"} `}
+              {`${"Created By"} `}
               <strong>
                 <Link href="https://github.com/tangent24-hash" target="_blank">
                   Sohan

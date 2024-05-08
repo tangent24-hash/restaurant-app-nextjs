@@ -1,8 +1,9 @@
 "use client";
 
 import Loading from "@/app/loading";
+import AuthContext from "@/authentication/AuthContext";
 import { Button } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify"; // Import for toast notifications
 
@@ -10,6 +11,7 @@ const AddToCart = ({ id }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false); // Track add-to-cart operation state
   const [isSuccess, setIsSuccess] = useState(false); // Track add-to-cart success
+  const { user } = useContext(AuthContext);
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
@@ -17,6 +19,11 @@ const AddToCart = ({ id }) => {
 
   const addToCart = async () => {
     setIsAdding(true); // Set loading state
+    if (!user) {
+      toast.error("Please login to add items to cart."); // Display error toast
+      setIsAdding(false); // Reset loading state
+      return;
+    }
     let msg;
     try {
       const response = await fetch(
@@ -41,7 +48,6 @@ const AddToCart = ({ id }) => {
         toast.error(msg); // Display error toast
       }
     } catch (error) {
-      console.error("Error adding to cart:", error);
       toast.error("Failed to add item to cart. Please try again."); // Display error toast
     } finally {
       setIsAdding(false); // Reset loading state

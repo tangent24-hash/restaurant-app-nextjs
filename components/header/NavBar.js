@@ -121,7 +121,7 @@ export default function NavBar() {
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton href="/register">
+                <ListItemButton href="/signup">
                   <ListItemText primary="Register" />
                 </ListItemButton>
               </ListItem>
@@ -222,7 +222,7 @@ export default function NavBar() {
                 Login
               </a>
               <a
-                href="/register"
+                href="/signup"
                 className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Register
