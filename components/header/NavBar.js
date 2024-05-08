@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -24,6 +24,7 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/navigation";
+import getCategories from "@/lib/getCategories";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { user, logoutUser } = useContext(AuthContext); // Use your auth context here
-
+  const [categories, setCategories] = useState(null);
   const router = useRouter();
   const toggleDrawer = (open) => (event) => {
     if (
@@ -67,6 +68,14 @@ export default function NavBar() {
     }
     setIsDrawerOpen(open);
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categoriesData = await getCategories();
+      setCategories(categoriesData);
+    };
+    fetchCategories();
+  }, []);
 
   const drawerList = () => (
     <Box
@@ -84,10 +93,10 @@ export default function NavBar() {
         Categories
       </Typography>
       <List>
-        {["Chinese", "Rice", "Snacks", "Vegetables"].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton href={`/categories/${text.toLowerCase()}`}>
-              <ListItemText primary={text} />
+        {categories?.map((category) => (
+          <ListItem key={category.id} disablePadding>
+            <ListItemButton href={`/category/${category.name}`}>
+              <ListItemText primary={category.name} />
             </ListItemButton>
           </ListItem>
         ))}

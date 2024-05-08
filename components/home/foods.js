@@ -29,8 +29,8 @@ export const FoodItem = ({ food }) => (
   </div>
 );
 
-const FoodItems = async () => {
-  let data = await getFoodItems(1);
+const FoodItems = async ({ category }) => {
+  let data = await getFoodItems(1, category);
   let foods = data.results;
 
   return (

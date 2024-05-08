@@ -1,5 +1,6 @@
 "use client";
 
+import withStaff from "@/authentication/withStaff";
 import DashboardNavigation from "@/components/dashboard/dashboardNavigation";
 
 const Layout = ({ children }) => {
@@ -13,4 +14,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default withStaff(Layout);

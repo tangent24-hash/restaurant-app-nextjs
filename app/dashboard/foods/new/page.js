@@ -4,6 +4,7 @@ import { TextField, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import createFoodItem from "@/lib/createFoodItem";
+import withStaff from "@/authentication/withStaff";
 
 const newFoodItem = () => {
   const router = useRouter();
@@ -122,4 +123,4 @@ const newFoodItem = () => {
   );
 };
 
-export default newFoodItem;
+export default withStaff(newFoodItem);
