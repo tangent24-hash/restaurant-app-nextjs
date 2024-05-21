@@ -15,27 +15,39 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   const loginUser = async (values) => {
-    let response = await fetch(
-      `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/login/`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
-      }
-    );
-    let data = await response.json();
+    try {
+      let response = await fetch(
+        `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/login/`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password,
+          }),
+        }
+      );
 
-    if (response.status === 200) {
-      setUser(data.user);
-      router.back();
-    } else {
-      setLoginError(true);
+      let data = await response.json();
+
+      if (response.status === 200) {
+        setUser(data.user);
+        router.back();
+      } else if (
+        response.status === 400 &&
+        data.non_field_errors.includes("E-mail is not verified.")
+      ) {
+        // Handle case where email is not verified
+        setLoginError("Please verify your email address to log in.");
+      } else {
+        setLoginError("Unable to log in with provided credentials.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setLoginError("An unexpected error occurred. Please try again.");
     }
   };
 

@@ -13,7 +13,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import AuthContext from "@/authentication/AuthContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function Copyright(props) {
   return (
@@ -54,6 +55,12 @@ export default function SignInSide() {
     },
   });
 
+  useEffect(() => {
+    if (loginError) {
+      toast.error(loginError);
+    }
+  }, [loginError]);
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -92,8 +99,8 @@ export default function SignInSide() {
               Sign in
             </Typography>
             {loginError ? (
-              <Typography variant="h5" color="danger" sx={{ paddin: 1 }}>
-                Incorrect Password or Email!
+              <Typography variant="h5" color="error" sx={{ paddin: 1 }}>
+                {loginError}
               </Typography>
             ) : (
               ""
@@ -139,14 +146,15 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="/reset-password" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
