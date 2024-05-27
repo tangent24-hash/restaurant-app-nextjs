@@ -40,7 +40,7 @@ export default function HeroAndOfferSection() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
         {items.map((item, i) => (
-          <div key={i} className="max-w-sm mx-auto">
+          <div key={i} className="w-full mx-auto">
             <Image
               src={item.img}
               alt={`Offer ${i + 1}`}
@@ -48,6 +48,7 @@ export default function HeroAndOfferSection() {
               height={300}
               layout="responsive"
               objectFit="cover"
+              className="rounded-lg"
             />
           </div>
         ))}
@@ -58,12 +59,11 @@ export default function HeroAndOfferSection() {
 
 function Item(props) {
   return (
-    <Paper style={{height:400}}>
+    <Paper style={{ height: "auto" }}>
       <Image
         src={props.item.img}
         alt={props.item.alt}
         layout="responsive"
-
         objectFit="cover"
       />
     </Paper>

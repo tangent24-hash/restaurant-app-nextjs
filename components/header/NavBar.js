@@ -3,7 +3,6 @@ import React, { useState, useContext, useEffect } from "react";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import InputBase from "@mui/material/InputBase";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import Logout from "@mui/icons-material/Logout";
@@ -17,48 +16,23 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Badge,
-  Container,
   Divider,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/navigation";
 import getCategories from "@/lib/getCategories";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import SearchBar from "@/components/food/SearchBar";
+import Link from "next/link";
 
 export default function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { user, logoutUser } = useContext(AuthContext); // Use your auth context here
   const [categories, setCategories] = useState(null);
   const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -81,8 +55,8 @@ export default function NavBar() {
     <Box
       sx={{ width: 250 }}
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={toggleDrawer(true)}
+      onKeyDown={toggleDrawer(true)}
     >
       <Typography
         variant="h6"
@@ -100,54 +74,59 @@ export default function NavBar() {
             </ListItemButton>
           </ListItem>
         ))}
-        <List sx={{ display: { xs: "block", md: "none" } }}>
-          <Divider sx={{ color: "darkslategray" }} />
-          <ListItem disablePadding>
-            <Search>
-              <StyledInputBase
-                placeholder="Search..."
-                inputProps={{ "aria-label": "search" }}
-              />
-              <IconButton type="submit" aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </Search>
-          </ListItem>
-          {!user && (
-            <>
-              <ListItem disablePadding>
-                <ListItemButton href="/login">
-                  <ListItemText primary="Login" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton href="/signup">
-                  <ListItemText primary="Register" />
-                </ListItemButton>
-              </ListItem>
-            </>
-          )}
-          {user && (
-            <>
-              <ListItem disablePadding>
-                <ListItemButton onClick={logoutUser}>
-                  <ListItemText primary="Logout" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText primary="My Account" />
-                </ListItemButton>
-              </ListItem>
-            </>
-          )}
-        </List>
+        {isMobile && (
+          <>
+            <Divider sx={{ color: "darkslategray" }} />
+            {user ? (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton href="/my-account/orders">
+                    <ListItemText primary="Orders" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton href="/my-account/profile">
+                    <ListItemText primary="My Account" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={logoutUser}>
+                    <ListItemText primary="Logout" />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            ) : (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton href="/login">
+                    <ListItemText primary="Login" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton href="/signup">
+                    <ListItemText primary="Register" />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            )}
+          </>
+        )}
       </List>
+      {isMobile && (
+        <Box sx={{ p: 2 }} onClick={(e) => e.stopPropagation()}>
+          <SearchBar onItemClick={() => setIsDrawerOpen(false)} />
+        </Box>
+      )}
     </Box>
   );
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "darkslategray" }}>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: "darkslategray",
+      }}
+    >
       <Toolbar>
         <IconButton
           edge="start"
@@ -161,47 +140,47 @@ export default function NavBar() {
         <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
           {drawerList()}
         </Drawer>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}>
+          <SearchBar />
+        </Box>
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            justifyContent: "flex-end",
+            flexGrow: 1,
+          }}
         >
-          {/* Your logo or title */}
-        </Typography>
-
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: "block", sm: "none" } }}
-        >
-          Yummy Food
-        </Typography>
-        <Search sx={{ display: { xs: "none", md: "block" } }}>
-          <StyledInputBase
-            placeholder="Search..."
-            inputProps={{ "aria-label": "search" }}
-          />
-          <SearchIcon />
-        </Search>
-        <IconButton color="inherit" href="/cart" style={{ fontSize: "medium" }}>
-          <ShoppingCart /> Cart
-        </IconButton>
-        <IconButton
-          color="inherit"
-          href="/my-account/orders"
-          style={{ fontSize: "medium" }}
-        >
-          Orders
-        </IconButton>
+          <IconButton
+            color="inherit"
+            href="/cart"
+            style={{ fontSize: "medium" }}
+          >
+            <ShoppingCart /> Cart
+          </IconButton>
+        </Box>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           {user ? (
             <>
               <IconButton
                 color="inherit"
+                href="/cart"
+                style={{ fontSize: "medium" }}
+              >
+                <ShoppingCart /> Cart
+              </IconButton>
+              <IconButton
+                color="inherit"
+                href="/my-account/orders"
+                style={{ fontSize: "medium" }}
+                sx={{ display: { xs: "none", md: "block" } }}
+              >
+                Orders
+              </IconButton>
+              <IconButton
+                color="inherit"
                 href="/my-account/profile"
                 style={{ fontSize: "medium" }}
+                sx={{ display: { xs: "none", md: "block" } }}
               >
                 <AccountCircle /> Profile
               </IconButton>
@@ -209,24 +188,25 @@ export default function NavBar() {
                 color="inherit"
                 onClick={logoutUser}
                 style={{ fontSize: "medium" }}
+                sx={{ display: { xs: "none", md: "block" } }}
               >
                 <Logout />
               </IconButton>
             </>
           ) : (
             <>
-              <a
+              <Link
                 href="/login"
                 className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Login
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/signup"
                 className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Register
-              </a>
+              </Link>
             </>
           )}
         </Box>
@@ -234,4 +214,3 @@ export default function NavBar() {
     </AppBar>
   );
 }
-// Path: components/header/NavBar.js

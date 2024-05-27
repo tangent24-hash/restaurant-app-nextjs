@@ -15,7 +15,7 @@ const Header = () => {
           fontSize: 36,
           fontWeight: "600",
           textAlign: "center",
-          display: { xs: "none", md: "block" },
+          display: { md: "block" },
         }}
       >
         <Link href="/" sx={{ textDecoration: "none", color: "inherit" }}>
