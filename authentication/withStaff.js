@@ -1,17 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import AuthContext from "@/authentication/AuthContext";
-import Loading from "@/app/loading"; // Import your loading component
+import Loading from "@/app/loading";
 
 const withStaff = (Component) => {
   return (props) => {
     let { user, loading } = useContext(AuthContext);
-    console.log(user);
     const router = useRouter();
 
     if (user || !loading) {
       // Render based on authentication state (after loading)
-      return user.is_staff ? (
+      return user?.is_staff ? (
         <Component {...props} /> // Pass user data as a prop
       ) : (
         router.push("/") // Redirect to login if not staff

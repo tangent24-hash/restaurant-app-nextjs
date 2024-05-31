@@ -5,6 +5,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 import Logout from "@mui/icons-material/Logout";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -113,9 +115,20 @@ export default function NavBar() {
         )}
       </List>
       {isMobile && (
-        <Box sx={{ p: 2 }} onClick={(e) => e.stopPropagation()}>
-          <SearchBar onItemClick={() => setIsDrawerOpen(false)} />
-        </Box>
+        <>
+          <Box sx={{ p: 2 }} onClick={(e) => e.stopPropagation()}>
+            <SearchBar onItemClick={() => setIsDrawerOpen(false)} />
+          </Box>
+          {user?.is_staff && (
+            <IconButton
+              color="inherit"
+              href="/dashboard"
+              style={{ fontSize: "medium" }}
+            >
+              <DashboardIcon /> Dashboard
+            </IconButton>
+          )}
+        </>
       )}
     </Box>
   );
@@ -159,6 +172,15 @@ export default function NavBar() {
           </IconButton>
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          {user?.is_staff && (
+            <IconButton
+              color="inherit"
+              href="/dashboard"
+              style={{ fontSize: "medium" }}
+            >
+              <DashboardIcon /> Dashboard
+            </IconButton>
+          )}
           {user ? (
             <>
               <IconButton
@@ -174,7 +196,7 @@ export default function NavBar() {
                 style={{ fontSize: "medium" }}
                 sx={{ display: { xs: "none", md: "block" } }}
               >
-                Orders
+                <ReceiptIcon /> Orders
               </IconButton>
               <IconButton
                 color="inherit"

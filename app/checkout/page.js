@@ -76,7 +76,7 @@ const CheckoutPage = () => {
       if (response.status === 201) {
         res = await response.json();
         toast.success("Order placed successfully!");
-        router.push("/orders");
+        router.push("/my-account/orders");
       } else {
         res = await response.json();
         toast.error(res.error);

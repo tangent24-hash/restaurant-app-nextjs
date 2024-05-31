@@ -5,14 +5,14 @@ import {
   Box,
   Paper,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import { fetchSearchResults } from "@/lib/api"; // Import the API call function
-import useDebounce from "@/lib/useDebounce"; // Import debounce hook
+import { fetchSearchResults } from "@/lib/api";
+import useDebounce from "@/lib/useDebounce";
 
 const SearchContainer = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -61,7 +61,7 @@ const ResultsDropdown = styled(Paper)(({ theme }) => ({
   overflowY: "auto",
 }));
 
-const SearchBar = ({ onItemClick }) => {
+const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -94,8 +94,30 @@ const SearchBar = ({ onItemClick }) => {
   const handleItemClick = (id) => {
     router.push(`/food/${id}`);
     setShowDropdown(false);
-    if (onItemClick) onItemClick();
   };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        !dropdownRef.current.contains(event.target) &&
+        !inputRef.current.contains(event.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <SearchContainer>
@@ -107,6 +129,7 @@ const SearchBar = ({ onItemClick }) => {
           onChange={(e) => setQuery(e.target.value)}
           ref={inputRef}
           onFocus={() => setShowDropdown(true)}
+          onKeyDown={handleKeyDown}
           onClick={(e) => e.stopPropagation()} // Prevent drawer close on click
         />
         <IconButton type="submit" aria-label="search" onClick={handleSearch}>
@@ -117,13 +140,12 @@ const SearchBar = ({ onItemClick }) => {
         <ResultsDropdown>
           <List>
             {results.map((result) => (
-              <ListItem
-                button
+              <ListItemButton
                 key={result.id}
                 onClick={() => handleItemClick(result.id)}
               >
                 <ListItemText primary={result.name} />
-              </ListItem>
+              </ListItemButton>
             ))}
           </List>
         </ResultsDropdown>

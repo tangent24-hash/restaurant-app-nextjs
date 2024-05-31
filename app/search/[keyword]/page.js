@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { List, ListItem, ListItemText, Button } from "@mui/material";
-import { searchFoodItems } from "@/lib/api";
+import { Button } from "@mui/material";
+import { fetchSearchResults } from "@/lib/api";
 import Loading from "@/app/loading";
+import Link from "next/link";
+import AddToCart from "@/components/food/AddToCart";
 
 const SearchPage = ({ params }) => {
   const router = useRouter();
@@ -17,8 +19,9 @@ const SearchPage = ({ params }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await searchFoodItems(keyword);
-        setResults(response);
+        const response = await fetchSearchResults(keyword);
+        setResults(response.results);
+        setNextPage(response.next);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -27,10 +30,6 @@ const SearchPage = ({ params }) => {
     };
 
     fetchData();
-
-    return () => {
-      // Cleanup function
-    };
   }, [keyword]);
 
   const handleLoadMore = async () => {
@@ -55,21 +54,43 @@ const SearchPage = ({ params }) => {
   }
 
   return (
-    <div>
-      <h1>Search Results</h1>
-      <List>
+    <div className="mx-auto flex flex-col items-center px-4 py-10 md:container">
+      <h1 className="text-3xl font-semibold mb-6">Search Results</h1>
+      <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4">
         {results.map((item) => (
-          <ListItem
+          <div
             key={item.id}
-            button
-            onClick={() => router.push(`/food/${item.id}`)}
+            className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full"
           >
-            <ListItemText primary={item.name} />
-          </ListItem>
+            <Link href={`/food/${item.id}`}>
+              <img
+                className="w-full h-48 object-cover rounded-t-lg"
+                src={item.image}
+                alt="Food Image"
+              />
+            </Link>
+            <div className="p-4 flex flex-col justify-between flex-grow">
+              <div>
+                <h2 className="text-lg font-semibold mb-2">{item.name}</h2>
+                <p className="text-gray-600 mb-2">Price: ${item.price}</p>
+                <div className="flex items-center mb-2">
+                  <span className="text-yellow-500">⭐</span>
+                  <span className="ml-1 text-gray-600">{item.rating}</span>
+                </div>
+              </div>
+              <AddToCart id={item.id} />
+            </div>
+          </div>
         ))}
-      </List>
+      </div>
       {nextPage && (
-        <Button onClick={handleLoadMore} disabled={loading}>
+        <Button
+          onClick={handleLoadMore}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          className="mt-6"
+        >
           Load More
         </Button>
       )}
