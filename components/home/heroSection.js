@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@mui/material";
+import { Paper } from "@mui/material";
 import Image from "next/image";
 import promobanner1 from "@/public/assets/foods/hero/promo-banner1.jpeg";
 import promobanner2 from "@/public/assets/foods/hero/promo-banner2.jpeg";
@@ -33,13 +33,13 @@ export default function HeroAndOfferSection() {
         navButtonsAlwaysVisible={true}
         navButtonsAlwaysInvisible={false}
       >
-        {items.map((item, i) => (
+        {items?.map((item, i) => (
           <Item key={i} item={item} />
         ))}
       </Carousel>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
-        {items.map((item, i) => (
+        {items?.map((item, i) => (
           <div key={i} className="w-full mx-auto">
             <Image
               src={item.img}

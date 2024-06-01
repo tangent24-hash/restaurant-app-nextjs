@@ -4,7 +4,6 @@ import { Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { fetchFoods, fetchOrders } from "@/lib/api";
 import withStaff from "@/authentication/withStaff";
-import Head from "next/head";
 
 const Dashboard = async () => {
   const foodsData = await fetchFoods();

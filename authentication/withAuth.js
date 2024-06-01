@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import { useRouter } from "next/navigation";
 import AuthContext from "@/authentication/AuthContext";
-import Loading from "@/app/loading"; // Import your loading component
+import Loading from "@/app/loading";
 
 const withAuth = (Component) => {
   return (props) => {
