@@ -49,8 +49,6 @@ const CheckoutPage = () => {
     fetchAddresses();
   }, []);
 
-  // ... rest of your existing logic
-
   const handlePayNow = async () => {
     if (!selectedAddress || !paymentMethod) {
       toast.error("Please select a delivery address and payment method.");
@@ -131,8 +129,9 @@ const CheckoutPage = () => {
               Select Address
             </Typography>
             <div className="space-y-4">
-              {addresses.map((address, index) => (
+              {addresses?.map((address, index) => (
                 <div
+                  key={address.id}
                   className={`${
                     selectedAddress?.id === address.id
                       ? "ring-2 ring-green-500"
