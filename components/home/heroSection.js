@@ -2,7 +2,7 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import promobanner1 from "@/public/assets/foods/hero/promo-banner1.jpeg";
 import promobanner2 from "@/public/assets/foods/hero/promo-banner2.jpeg";
 import promobanner3 from "@/public/assets/foods/hero/promo-banner3.jpeg";
