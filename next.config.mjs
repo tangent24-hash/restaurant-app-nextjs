@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost"], // Replace with your development server hostname/domain
+    domains: ["res.cloudinary.com"], // Replace with your development server hostname/domain
   },
 };
 
