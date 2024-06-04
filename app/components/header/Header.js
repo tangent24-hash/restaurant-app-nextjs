@@ -1,6 +1,7 @@
 import { Box, Link } from "@mui/material";
 import NavBar from "./NavBar";
 import { TopBar } from "./TopBar";
+import { Suspense } from "react";
 
 const Header = () => {
   return (
