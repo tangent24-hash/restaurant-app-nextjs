@@ -3,6 +3,7 @@
 import DashboardNavigation from "@/app/components/dashboard/dashboardNavigation";
 import { useContext, useEffect } from "react";
 import AuthContext from "../authentication/AuthContext";
+import { redirect } from "next/navigation";
 
 const Layout = ({ children }) => {
   let { user, loading } = useContext(AuthContext);

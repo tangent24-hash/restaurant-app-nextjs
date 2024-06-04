@@ -26,8 +26,9 @@ import { useRouter } from "next/navigation";
 import getCategories from "@/app/lib/getCategories";
 import SearchBar from "@/app/components/food/SearchBar";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
-export default function NavBar() {
+const NavigationBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { user, logoutUser } = useContext(AuthContext); // Use your auth context here
   const [categories, setCategories] = useState(null);
@@ -235,4 +236,11 @@ export default function NavBar() {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+// export it with SSR disabled
+const NavBar = dynamic(() => Promise.resolve(NavigationBar), {
+  ssr: false,
+});
+
+export default NavBar;

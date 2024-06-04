@@ -14,7 +14,7 @@ const Dashboard = async () => {
   const orderDates = orders?.map((order) =>
     new Date(order?.created_date).toLocaleDateString()
   );
-  const totalAmounts = orders?.map((order) => order.total_amount);
+  const totalAmounts = orders?.map((order) => order?.total_amount);
 
   const calculateOrderStatusCounts = (orders) => {
     return orders?.reduce((acc, order) => {

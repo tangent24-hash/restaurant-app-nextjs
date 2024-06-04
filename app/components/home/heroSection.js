@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import Carousel from "react-material-ui-carousel";
 import Paper from "@mui/material/Paper";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import promobanner1 from "@/public/assets/foods/hero/promo-banner1.jpeg";
 import promobanner2 from "@/public/assets/foods/hero/promo-banner2.jpeg";
 import promobanner3 from "@/public/assets/foods/hero/promo-banner3.jpeg";
@@ -25,7 +24,7 @@ export default function HeroAndOfferSection() {
 
   return (
     <>
-      <Carousel
+      {/* <Carousel
         autoPlay={false}
         animation="slide"
         indicators={true}
@@ -36,7 +35,7 @@ export default function HeroAndOfferSection() {
         {items?.map((item, i) => (
           <Item key={i} item={item} />
         ))}
-      </Carousel>
+      </Carousel> */}
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
         {items?.map((item, i) => (

@@ -6,10 +6,19 @@ export default async function getFoodItems(page = 1, category = null) {
   } else {
     url = `${process.env.NEXT_PUBLIC_FOOD_API}/foods?format=json&page=${page}`;
   }
-  await fetch(url, {
-    cache: "no-store",
-  })
-    .then((response) => response.json())
-    .then((json) => (value = json));
+
+  try {
+    const response = await fetch(url, {
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    value = await response.json();
+  } catch (error) {
+    console.error("Error fetching food items:", error);
+    value = null; 
+  }
+
   return value;
 }
