@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import getOrders from "@/app/lib/getOrders";
 import StatusUpdateDialog from "@/app/components/dashboard/statusUpdateDialog";
 import { useRouter } from "next/navigation";
-import WithStaff from "@/app/authentication/WithStaff";
 
 const DashboardOrders = () => {
   const columns = [
@@ -150,4 +149,4 @@ const DashboardOrders = () => {
   );
 };
 
-export default WithStaff(DashboardOrders);
+export default DashboardOrders;

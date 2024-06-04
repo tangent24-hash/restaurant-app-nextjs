@@ -5,7 +5,6 @@ import updateFoodDetails from "@/app/lib/updateFoodDetails";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import getFoodDetails from "@/app/lib/getFoodDetails";
-import WithStaff from "@/app/authentication/WithStaff";
 
 const UpdateFoodItemPage = ({ params }) => {
   const router = useRouter();
@@ -138,4 +137,4 @@ const UpdateFoodItemPage = ({ params }) => {
   );
 };
 
-export default WithStaff(UpdateFoodItemPage);
+export default UpdateFoodItemPage;

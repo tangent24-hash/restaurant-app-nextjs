@@ -3,7 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import getFoodItems from "@/app/lib/getFoodItems";
 import { Button, Container, Fab, Link } from "@mui/material";
 import { useEffect, useState } from "react";
-import WithStaff from "@/app/authentication/WithStaff";
 
 const columns = [
   {
@@ -139,4 +138,4 @@ const DashboardFoods = () => {
   );
 };
 
-export default WithStaff(DashboardFoods);
+export default DashboardFoods;

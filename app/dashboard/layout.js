@@ -1,9 +1,18 @@
 "use client";
 
-import WithStaff from "@/app/authentication/WithStaff";
 import DashboardNavigation from "@/app/components/dashboard/dashboardNavigation";
+import { useContext, useEffect } from "react";
+import AuthContext from "../authentication/AuthContext";
 
 const Layout = ({ children }) => {
+  let { user, loading } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!user?.is_staff && !loading) {
+      redirect("/login");
+    }
+  }, [user, loading]);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 pt-4">
       <div className="md:col-span-1">
@@ -14,4 +23,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default WithStaff(Layout);
+export default Layout;

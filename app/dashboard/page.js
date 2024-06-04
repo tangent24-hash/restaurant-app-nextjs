@@ -3,22 +3,21 @@ import React from "react";
 import { Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { fetchFoods, fetchOrders } from "@/app/lib/api";
-import WithStaff from "@/app/authentication/WithStaff";
 
 const Dashboard = async () => {
   const foodsData = await fetchFoods();
   const ordersData = await fetchOrders();
 
-  const foods = foodsData.results;
-  const orders = ordersData.results;
+  const foods = foodsData?.results;
+  const orders = ordersData?.results;
 
-  const orderDates = orders.map((order) =>
-    new Date(order.created_date).toLocaleDateString()
+  const orderDates = orders?.map((order) =>
+    new Date(order?.created_date).toLocaleDateString()
   );
-  const totalAmounts = orders.map((order) => order.total_amount);
+  const totalAmounts = orders?.map((order) => order.total_amount);
 
   const calculateOrderStatusCounts = (orders) => {
-    return orders.reduce((acc, order) => {
+    return orders?.reduce((acc, order) => {
       acc[order.status] = (acc[order.status] || 0) + 1;
       return acc;
     }, {});
@@ -54,11 +53,11 @@ const Dashboard = async () => {
   };
 
   const stockData = {
-    labels: [...new Set(foods.map((food) => food.category))],
+    labels: [...new Set(foods?.map((food) => food.category))],
     datasets: [
       {
         label: "Items in Stock",
-        data: foods.reduce((acc, food) => {
+        data: foods?.reduce((acc, food) => {
           acc[food.category] = (acc[food.category] || 0) + food.in_stock;
           return acc;
         }, {}),
@@ -70,7 +69,7 @@ const Dashboard = async () => {
   };
 
   const revenueData = {
-    labels: foods.map((food) => food.name),
+    labels: foods?.map((food) => food.name),
     datasets: [
       {
         label: "Total Revenue",
@@ -149,4 +148,4 @@ const Dashboard = async () => {
   );
 };
 
-export default WithStaff(Dashboard);
+export default Dashboard;

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,8 +11,9 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import styles
-import WithAuth from "@/app/authentication/WithAuth";
+import "react-toastify/dist/ReactToastify.css";
+import AuthContext from "../authentication/AuthContext";
+import { redirect } from "next/navigation";
 
 const CartItem = styled(Paper)(({ theme }) => ({
   display: "grid",
@@ -48,6 +49,13 @@ const CartContainer = styled(Box)(({ theme }) => ({
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const { user, loading } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!user && !loading) {
+      redirect("/login");
+    }
+  }, [user, loading]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -184,4 +192,4 @@ const CartPage = () => {
   );
 };
 
-export default WithAuth(CartPage);
+export default CartPage;

@@ -1,17 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  Typography,
-  Grid,
-  Paper,
-  Box,
-  Card,
-  CardContent,
-  Divider,
-} from "@mui/material";
+import { Typography, Grid, Box, Card, Divider } from "@mui/material";
 import getOrderDetails from "@/app/lib/getOrderDetails";
 import getUserAddress from "@/app/lib/getUserAddress";
-import WithAuth from "@/app/authentication/WithAuth";
 
 const OrderDetailsPage = ({ params }) => {
   const orderId = params.id;
@@ -132,4 +123,4 @@ const OrderDetailsPage = ({ params }) => {
   );
 };
 
-export default WithAuth(OrderDetailsPage);
+export default OrderDetailsPage;

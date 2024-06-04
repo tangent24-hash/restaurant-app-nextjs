@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import getUserAddresses from "@/app/lib/getUserAddresses.js";
 import {
   Button,
@@ -21,7 +21,7 @@ import { toast } from "react-toastify"; // Import Toastify components
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import { useRouter } from "next/navigation";
 import CheckoutForm from "@/app/components/checkout/checkoutForm";
-import WithAuth from "@/app/authentication/WithAuth";
+import AuthContext from "../authentication/AuthContext";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -32,8 +32,14 @@ const CheckoutPage = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [clientSecret, setClientSecret] = useState("");
-
+  const { user, loading } = useContext(AuthContext);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!user && !loading) {
+      router.push("/login");
+    }
+  }, [user, loading]);
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -218,4 +224,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default WithAuth(CheckoutPage);
+export default CheckoutPage;
