@@ -5,7 +5,7 @@ import LoadMore from "./loadMore";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
 
-export const FoodItem = ({ food }) => (
+export const FoodItem = ({ food = null }) => (
   <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
     <Link href={`/food/${food.id}`}>
       <img
@@ -29,18 +29,18 @@ export const FoodItem = ({ food }) => (
   </div>
 );
 
-const FoodItems = async ({ category }) => {
+const FoodItems = async ({ category = null }) => {
   let data = await getFoodItems(1, category);
-  let foods = data.results;
+  let foods = data?.results;
 
   return (
     <div className="mx-auto flex flex-col items-center px-4 py-10 md:container">
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4">
-        {foods.map((food) => (
+        {foods?.map((food) => (
           <FoodItem key={food.id} food={food} />
         ))}
       </div>
-      {data.next && (
+      {data?.next && (
         <Suspense fallback={<Loading />}>
           <LoadMore />
         </Suspense>

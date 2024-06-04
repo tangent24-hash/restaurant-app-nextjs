@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import getOrders from "@/app/lib/getOrders";
 import Link from "next/link";
-import WithAuth from "@/app/authentication/WithAuth";
 
 const statusStyles = {
   processing: "bg-yellow-400",

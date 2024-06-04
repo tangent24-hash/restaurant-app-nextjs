@@ -1,13 +1,11 @@
-// Import necessary components
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useRouter, usePathname } from "next/navigation";
 
-// Define the SideNav component
 const SideNav = () => {
-  const [selectedPage, setSelectedPage] = useState(""); // Default selected page
+  const [selectedPage, setSelectedPage] = useState("");
 
   const router = useRouter();
   let path = usePathname();
@@ -30,7 +28,7 @@ const SideNav = () => {
   return (
     <div className="w-full md:w-60">
       <Card className="m-5 shadow-xl rounded-lg">
-        {navItems.map((text) => (
+        {navItems?.map((text) => (
           <CardContent
             key={text}
             onClick={() => handleNavigation(text)}

@@ -1,10 +1,10 @@
 import FoodItems from "@/app/components/home/foods";
-import HeroSection from "@/app/components/home/heroSection";
+import HeroAndOfferSection from "./components/home/heroSection";
 
 const Page = () => {
   return (
     <div>
-      <HeroSection />
+      <HeroAndOfferSection />
       <FoodItems />
     </div>
   );

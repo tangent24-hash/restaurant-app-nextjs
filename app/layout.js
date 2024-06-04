@@ -4,8 +4,8 @@ import Header from "@/app/components/header/Header";
 import { AuthProvider } from "@/app/authentication/AuthContext";
 import Footer from "@/app/components/footer/footer";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter/index";
+
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

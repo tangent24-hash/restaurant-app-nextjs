@@ -86,7 +86,7 @@ export default function ResetPassword() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ backgroundColor: "darkslategray", }}
+            sx={{ backgroundColor: "darkslategray" }}
             style={{ padding: "12px" }}
           >
             Reset Password

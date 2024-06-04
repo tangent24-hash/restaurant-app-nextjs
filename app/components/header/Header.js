@@ -22,7 +22,9 @@ const Header = () => {
           Yummy Food
         </Link>
       </Box>
-      <NavBar></NavBar>
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavBar></NavBar>
+      </Suspense>
     </Box>
   );
 };

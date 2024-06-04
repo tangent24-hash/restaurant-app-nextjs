@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import Image from "next/legacy/image";
 import promobanner1 from "@/public/assets/foods/hero/promo-banner1.jpeg";
 import promobanner2 from "@/public/assets/foods/hero/promo-banner2.jpeg";
@@ -57,12 +57,12 @@ export default function HeroAndOfferSection() {
   );
 }
 
-function Item(props) {
+function Item(props = null) {
   return (
     <Paper style={{ height: "auto" }}>
       <Image
-        src={props.item.img}
-        alt={props.item.alt}
+        src={props?.item.img}
+        alt={props?.item.alt}
         layout="responsive"
         objectFit="cover"
       />

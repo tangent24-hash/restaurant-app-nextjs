@@ -57,7 +57,7 @@ const SearchPage = ({ params }) => {
     <div className="mx-auto flex flex-col items-center px-4 py-10 md:container">
       <h1 className="text-3xl font-semibold mb-6">Search Results</h1>
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4">
-        {results.map((item) => (
+        {results?.map((item) => (
           <div
             key={item.id}
             className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full"
