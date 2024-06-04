@@ -1,7 +1,7 @@
 "use client";
 import { CircularProgress, Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-import { verifyEmail } from "@/lib/api";
+import { verifyEmail } from "@/app/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 

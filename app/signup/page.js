@@ -17,7 +17,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { Paper } from "@mui/material";
 import { useContext } from "react";
-import AuthContext from "@/authentication/AuthContext";
+import AuthContext from "@/app/authentication/AuthContext";
 
 const theme = createTheme();
 

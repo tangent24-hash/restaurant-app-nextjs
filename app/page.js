@@ -1,5 +1,5 @@
-import FoodItems from "@/components/home/foods";
-import HeroSection from "@/components/home/heroSection";
+import FoodItems from "@/app/components/home/foods";
+import HeroSection from "@/app/components/home/heroSection";
 
 const Page = () => {
   return (

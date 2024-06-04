@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
-import { fetchSearchResults } from "@/lib/api";
+import { fetchSearchResults } from "@/app/lib/api";
 import Loading from "@/app/loading";
 import Link from "next/link";
-import AddToCart from "@/components/food/AddToCart";
+import AddToCart from "@/app/components/food/AddToCart";
 
 const SearchPage = ({ params }) => {
   const router = useRouter();

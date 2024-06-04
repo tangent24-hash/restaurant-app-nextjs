@@ -2,8 +2,8 @@
 import React from "react";
 import { Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
-import { fetchFoods, fetchOrders } from "@/lib/api";
-import withStaff from "@/authentication/withStaff";
+import { fetchFoods, fetchOrders } from "@/app/lib/api";
+import WithStaff from "@/app/authentication/WithStaff";
 
 const Dashboard = async () => {
   const foodsData = await fetchFoods();
@@ -149,4 +149,4 @@ const Dashboard = async () => {
   );
 };
 
-export default withStaff(Dashboard);
+export default WithStaff(Dashboard);

@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
-import getUserDetails from "@/lib/getUserDetails";
+import getUserDetails from "@/app/lib/getUserDetails";
 import { toast } from "react-toastify";
 import Loading from "@/app/loading";
 

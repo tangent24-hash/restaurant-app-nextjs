@@ -2,10 +2,10 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Container, Fab, Link } from "@mui/material";
 import { useEffect, useState } from "react";
-import getOrders from "@/lib/getOrders";
-import StatusUpdateDialog from "@/components/dashboard/statusUpdateDialog";
+import getOrders from "@/app/lib/getOrders";
+import StatusUpdateDialog from "@/app/components/dashboard/statusUpdateDialog";
 import { useRouter } from "next/navigation";
-import withStaff from "@/authentication/withStaff";
+import WithStaff from "@/app/authentication/WithStaff";
 
 const DashboardOrders = () => {
   const columns = [
@@ -150,4 +150,4 @@ const DashboardOrders = () => {
   );
 };
 
-export default withStaff(DashboardOrders);
+export default WithStaff(DashboardOrders);

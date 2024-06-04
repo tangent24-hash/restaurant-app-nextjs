@@ -1,4 +1,4 @@
-import FoodItems from "@/components/home/foods";
+import FoodItems from "@/app/components/home/foods";
 
 const Page = ({ params }) => {
   const category = params.slug;

@@ -1,6 +1,6 @@
 "use client";
-import getUserAddresses from "@/lib/getUserAddresses";
-import AddressForm from "@/components/address/addressForm";
+import getUserAddresses from "@/app/lib/getUserAddresses";
+import AddressForm from "@/app/components/address/addressForm";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";

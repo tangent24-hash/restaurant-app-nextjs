@@ -10,9 +10,9 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import getOrders from "@/lib/getOrders";
+import getOrders from "@/app/lib/getOrders";
 import Link from "next/link";
-import withAuth from "@/authentication/withAuth";
+import WithAuth from "@/app/authentication/WithAuth";
 
 const statusStyles = {
   processing: "bg-yellow-400",
@@ -188,4 +188,4 @@ const OrdersPage = () => {
   );
 };
 
-export default withAuth(OrdersPage);
+export default WithAuth(OrdersPage);

@@ -9,9 +9,9 @@ import {
   CardContent,
   Divider,
 } from "@mui/material";
-import getOrderDetails from "@/lib/getOrderDetails";
-import getUserAddress from "@/lib/getUserAddress";
-import withAuth from "@/authentication/withAuth";
+import getOrderDetails from "@/app/lib/getOrderDetails";
+import getUserAddress from "@/app/lib/getUserAddress";
+import WithAuth from "@/app/authentication/WithAuth";
 
 const OrderDetailsPage = ({ params }) => {
   const orderId = params.id;
@@ -132,4 +132,4 @@ const OrderDetailsPage = ({ params }) => {
   );
 };
 
-export default withAuth(OrderDetailsPage);
+export default WithAuth(OrderDetailsPage);

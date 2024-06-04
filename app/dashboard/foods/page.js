@@ -1,9 +1,9 @@
 "use client";
 import { DataGrid } from "@mui/x-data-grid";
-import getFoodItems from "@/lib/getFoodItems";
+import getFoodItems from "@/app/lib/getFoodItems";
 import { Button, Container, Fab, Link } from "@mui/material";
 import { useEffect, useState } from "react";
-import withStaff from "@/authentication/withStaff";
+import WithStaff from "@/app/authentication/WithStaff";
 
 const columns = [
   {
@@ -139,4 +139,4 @@ const DashboardFoods = () => {
   );
 };
 
-export default withStaff(DashboardFoods);
+export default WithStaff(DashboardFoods);

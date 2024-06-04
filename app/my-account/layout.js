@@ -1,5 +1,5 @@
 "use client";
-import SideNav from "@/components/myaccount/sidenav";
+import SideNav from "@/app/components/myaccount/sidenav";
 
 const Layout = ({ children }) => {
   return (

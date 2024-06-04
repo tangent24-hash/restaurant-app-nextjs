@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import AuthContext from "@/authentication/AuthContext";
+import AuthContext from "@/app/authentication/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 

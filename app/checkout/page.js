@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import getUserAddresses from "@/lib/getUserAddresses.js";
+import getUserAddresses from "@/app/lib/getUserAddresses.js";
 import {
   Button,
   Card,
@@ -20,8 +20,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify"; // Import Toastify components
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import { useRouter } from "next/navigation";
-import CheckoutForm from "@/components/checkout/checkoutForm";
-import withAuth from "@/authentication/withAuth";
+import CheckoutForm from "@/app/components/checkout/checkoutForm";
+import WithAuth from "@/app/authentication/WithAuth";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -218,4 +218,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default withAuth(CheckoutPage);
+export default WithAuth(CheckoutPage);

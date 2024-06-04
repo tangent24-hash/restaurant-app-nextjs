@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { TextField, Button, CircularProgress } from "@mui/material";
-import updateFoodDetails from "@/lib/updateFoodDetails";
+import updateFoodDetails from "@/app/lib/updateFoodDetails";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import getFoodDetails from "@/lib/getFoodDetails";
-import withStaff from "@/authentication/withStaff";
+import getFoodDetails from "@/app/lib/getFoodDetails";
+import WithStaff from "@/app/authentication/WithStaff";
 
 const UpdateFoodItemPage = ({ params }) => {
   const router = useRouter();
@@ -138,4 +138,4 @@ const UpdateFoodItemPage = ({ params }) => {
   );
 };
 
-export default withStaff(UpdateFoodItemPage);
+export default WithStaff(UpdateFoodItemPage);

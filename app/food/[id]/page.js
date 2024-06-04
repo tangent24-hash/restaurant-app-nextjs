@@ -1,12 +1,12 @@
 import Image from "next/legacy/image";
 import { FaStar } from "react-icons/fa";
-import getFoodDetails from "@/lib/getFoodDetails";
-import AddToCart from "@/components/food/AddToCart";
-import ShareButtons from "@/components/food/ShareButtons";
+import getFoodDetails from "@/app/lib/getFoodDetails";
+import AddToCart from "@/app/components/food/AddToCart";
+import ShareButtons from "@/app/components/food/ShareButtons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
-import { getFoodReviews } from "@/lib/api";
-import Reviews from "@/components/food/Reviews";
+import { getFoodReviews } from "@/app/lib/api";
+import Reviews from "@/app/components/food/Reviews";
 
 export default async function ProductPage({ params }) {
   const id = params.id;

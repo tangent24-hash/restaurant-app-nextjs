@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
-import withAuth from "@/authentication/withAuth";
+import WithAuth from "@/app/authentication/WithAuth";
 
 const CartItem = styled(Paper)(({ theme }) => ({
   display: "grid",
@@ -184,4 +184,4 @@ const CartPage = () => {
   );
 };
 
-export default withAuth(CartPage);
+export default WithAuth(CartPage);
