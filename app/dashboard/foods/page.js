@@ -1,6 +1,6 @@
 "use client";
 import { DataGrid } from "@mui/x-data-grid";
-import getFoodItems from "@/app/lib/getFoodItems";
+import { fetchFoodItems } from "@/app/lib/foods/api";
 import { Button, Container, Fab, Link } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -101,7 +101,7 @@ const DashboardFoods = () => {
 
   useEffect(() => {
     const fetchFoods = async () => {
-      const data = await getFoodItems(paginationModel.page + 1);
+      const data = await fetchFoodItems(paginationModel.page + 1);
       setRowCount(data.count);
       setFoods(data.results);
     };

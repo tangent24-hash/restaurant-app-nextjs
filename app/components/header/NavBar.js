@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -12,7 +12,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import AuthContext from "@/app/authentication/AuthContext"; // Update the import path as needed
+// import AuthContext from "@/authentication/AuthContext";
 import {
   Box,
   AppBar,
@@ -22,19 +22,27 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
-import getCategories from "@/app/lib/getCategories";
 import SearchBar from "@/app/components/food/SearchBar";
 import Link from "next/link";
+import { getUser, logoutUser } from "@/app/api/auth";
+import getCategories from "@/app/lib/getCategories";
 import dynamic from "next/dynamic";
 
 const NavigationBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { user, logoutUser } = useContext(AuthContext); // Use your auth context here
+  // const { user, logoutUser } = useContext(AuthContext);
   const [categories, setCategories] = useState(null);
-  const router = useRouter();
+  const [user, setUser] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
+  }, []);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -237,7 +245,6 @@ const NavigationBar = () => {
     </AppBar>
   );
 };
-
 // export it with SSR disabled
 const NavBar = dynamic(() => Promise.resolve(NavigationBar), {
   ssr: false,

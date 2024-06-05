@@ -1,17 +1,25 @@
 "use client";
 
 import Loading from "@/app/loading";
-import AuthContext from "@/app/authentication/AuthContext";
+// import AuthContext from "@/app/authentication/AuthContext";
 import { Button } from "@mui/material";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
-import { toast } from "react-toastify"; // Import for toast notifications
+import { toast } from "react-toastify";
+import { getUser } from "@/app/api/auth";
 
 const AddToCart = ({ id }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false); // Track add-to-cart operation state
-  const [isSuccess, setIsSuccess] = useState(false); // Track add-to-cart success
-  const { user } = useContext(AuthContext);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
+  }, []);
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
@@ -40,7 +48,6 @@ const AddToCart = ({ id }) => {
       );
 
       if (response.status === 201) {
-        setIsSuccess(true); // Set success state
         toast.success("Item added to cart successfully!"); // Display success toast
       } else if (response.status === 400) {
         msg = await response.json();
@@ -53,11 +60,6 @@ const AddToCart = ({ id }) => {
       setIsAdding(false); // Reset loading state
     }
   };
-
-  // Reset success state on component unmount (optional)
-  useEffect(() => {
-    return () => setIsSuccess(false);
-  }, []);
 
   return (
     <div className="flex items-center mb-4">

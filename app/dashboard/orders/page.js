@@ -2,7 +2,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Container, Fab, Link } from "@mui/material";
 import { useEffect, useState } from "react";
-import getOrders from "@/app/lib/getOrders";
+import { fetchOrders } from "@/app/lib/orders/api";
 import StatusUpdateDialog from "@/app/components/dashboard/statusUpdateDialog";
 import { useRouter } from "next/navigation";
 
@@ -115,13 +115,13 @@ const DashboardOrders = () => {
   }, [rowCount, setRowCountState]);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const data = await getOrders(paginationModel.page + 1);
+    const getOrders = async () => {
+      const data = await fetchOrders(paginationModel.page + 1);
       setRowCount(data.count);
       setOrders(data.results);
     };
 
-    fetchOrders();
+    getOrders();
   }, [paginationModel.page]);
 
   return (

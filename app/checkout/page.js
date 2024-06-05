@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
-import getUserAddresses from "@/app/lib/getUserAddresses.js";
+import { useState, useEffect } from "react";
+import { fetchAddresses } from "../lib/user/api";
+
 import {
   Button,
   Card,
@@ -14,14 +15,13 @@ import {
 } from "@mui/material";
 import PaymentIcon from "@mui/icons-material/Payment";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping"; // New icon for Cash on Delivery
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { toast } from "react-toastify"; // Import Toastify components
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import CheckoutForm from "@/app/components/checkout/checkoutForm";
-import AuthContext from "../authentication/AuthContext";
+import { getUser } from "../api/auth";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -32,28 +32,45 @@ const CheckoutPage = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [clientSecret, setClientSecret] = useState("");
-  const { user, loading } = useContext(AuthContext);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const router = useRouter();
 
   useEffect(() => {
-    if (!user && !loading) {
-      router.push("/login");
-    }
-  }, [user, loading]);
-
-  useEffect(() => {
-    const fetchAddresses = async () => {
+    const fetchUser = async () => {
       try {
-        let addresses = await getUserAddresses();
-        addresses = await addresses.results;
-        setAddresses(addresses);
+        const userData = await getUser();
+        setUser(userData);
+        if (!userData) {
+          router.push("/login");
+        }
       } catch (error) {
-        toast.error("Error fetching addresses:", error);
+        console.error("Error fetching user:", error);
+        router.push("/login");
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchAddresses();
-  }, []);
+    fetchUser();
+  }, [router]);
+
+  useEffect(() => {
+    if (user) {
+      const fetchAddresses = async () => {
+        try {
+          let addresses = await fetchAddresses();
+          addresses = addresses.results;
+          setAddresses(addresses);
+        } catch (error) {
+          toast.error("Error fetching addresses:", error);
+        }
+      };
+
+      fetchAddresses();
+    }
+  }, [user]);
 
   const handlePayNow = async () => {
     if (!selectedAddress || !paymentMethod) {
@@ -75,7 +92,6 @@ const CheckoutPage = () => {
         router.push("/");
       }
     } else {
-      // Handle cash on delivery (COD) logic
       const response = await submitOrder(selectedAddress.id, "cod");
       if (response.status === 201) {
         res = await response.json();
@@ -109,13 +125,19 @@ const CheckoutPage = () => {
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
   };
+
   const appearance = {
     theme: "stripe",
   };
+
   const options = {
     clientSecret,
     appearance,
   };
+
+  if (loading) {
+    return <p>Loading...</p>; // Show loading state while fetching user data
+  }
 
   return (
     <Container className="my-8 mx-auto px-4 sm:px-6 lg:px-8">
@@ -146,14 +168,13 @@ const CheckoutPage = () => {
                 >
                   <Card
                     key={address.id}
-                    className={` shadow-md hover:shadow-lg transition-shadow duration-300 p-4 `}
+                    className={`shadow-md hover:shadow-lg transition-shadow duration-300 p-4`}
                     onClick={() => handleAddressSelect(address)}
                   >
                     <CardContent>
                       <Typography variant="h6" className="font-semibold mb-2">
                         {index + 1}. {address.country}
                       </Typography>
-                      {/* ... rest of the address fields */}
                       <Typography variant="body1" className="mb-2">
                         {address.address}
                       </Typography>

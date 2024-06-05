@@ -1,5 +1,6 @@
 "use client";
-import getUserAddresses from "@/app/lib/getUserAddresses";
+import { fetchAddresses } from "@/app/lib/user/api";
+
 import AddressForm from "@/app/components/address/addressForm";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
@@ -12,16 +13,16 @@ const AddressPage = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
-    const fetchAddresses = async () => {
+    const getAddresses = async () => {
       try {
-        const userAddresses = await getUserAddresses();
+        const userAddresses = await fetchAddresses();
         setAddresses(userAddresses.results);
       } catch (error) {
         console.error("Error fetching addresses:", error);
       }
     };
 
-    fetchAddresses();
+    getAddresses();
   }, []);
 
   return (
@@ -30,7 +31,7 @@ const AddressPage = () => {
         <Typography variant="h4" gutterBottom>
           Addresses
         </Typography>
-        {addresses.map((address) => (
+        {addresses?.map((address) => (
           <Card key={address.id} className="mb-4">
             <CardContent>
               <Typography variant="h6">{address.address}</Typography>

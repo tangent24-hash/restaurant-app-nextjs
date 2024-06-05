@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { FoodItem } from "./foods";
-import getFoodItems from "@/app/lib/getFoodItems";
+import { fetchFoodItems } from "@/app/lib/foods/api";
 import { Button } from "@mui/material";
 
 const LoadMore = () => {
@@ -11,7 +11,7 @@ const LoadMore = () => {
 
   const handleLoadMore = async () => {
     const nextPage = page + 1;
-    const response = await getFoodItems(nextPage);
+    const response = await fetchFoodItems(nextPage);
     const newFoodItems = response.results;
 
     if (response.next === null) {

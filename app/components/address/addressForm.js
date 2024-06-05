@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getUserAddress from "@/app/lib/getUserAddress";
+import { fetchUserAddress } from "@/app/lib/user/api";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { TextField, Button, Card, CardContent } from "@mui/material";
@@ -16,7 +16,7 @@ const AddressForm = ({ action, id }) => {
     if (action === "edit" && id) {
       const fetchAddress = async () => {
         try {
-          const res = await getUserAddress(id);
+          const res = await fetchUserAddress(id);
           setAddress(res);
         } catch (error) {
           console.error("Error fetching address:", error);

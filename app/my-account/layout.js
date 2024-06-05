@@ -1,17 +1,17 @@
 "use client";
 import SideNav from "@/app/components/myaccount/sidenav";
-import { useContext, useEffect } from "react";
-import AuthContext from "../authentication/AuthContext";
+// import { useContext, useEffect } from "react";
+// import AuthContext from "../authentication/AuthContext";
 import { redirect } from "next/navigation";
+import { getUser } from "../api/auth";
 
 const Layout = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  // const { user, loading } = useContext(AuthContext);
+  const user = getUser;
 
-  useEffect(() => {
-    if (!user && !loading) {
-      redirect("/login");
-    }
-  }, [user, loading]);
+  if (!user) {
+    redirect("/login");
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4">

@@ -5,16 +5,18 @@ import AddToCart from "@/app/components/food/AddToCart";
 import ShareButtons from "@/app/components/food/ShareButtons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
-import { getFoodReviews } from "@/app/lib/api";
+import { fetchFoodReviews } from "@/app/lib/foods/api";
 import Reviews from "@/app/components/food/Reviews";
+import { Suspense } from "react";
 
 export default async function ProductPage({ params }) {
-  const id = params.id;
+  const id = params?.id;
 
   let product = await getFoodDetails(id);
   const initialUrl = `${process.env.NEXT_PUBLIC_FOOD_API}/reviews?food=${id}`;
-  const initialReviews = await getFoodReviews(initialUrl);
+  const initialReviews = await fetchFoodReviews(initialUrl);
 
+  
   return (
     <div className="container mx-auto p-6">
       <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
@@ -41,18 +43,24 @@ export default async function ProductPage({ params }) {
           <ToastContainer />
           {product.in_stock >= 0 && (
             <div className="product-actions">
-              <AddToCart id={id} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <AddToCart id={id} />
+              </Suspense>
             </div>
           )}
-          <ShareButtons />
+          <Suspense fallback={<div>Loading...</div>}>
+            <ShareButtons />
+          </Suspense>
         </div>
       </div>
       <div className="mt-8">
-        <Reviews
-          initialReviews={initialReviews}
-          initialUrl={initialUrl}
-          foodId={id}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Reviews
+            initialReviews={initialReviews}
+            initialUrl={initialUrl}
+            foodId={id}
+          />
+        </Suspense>
       </div>
     </div>
   );

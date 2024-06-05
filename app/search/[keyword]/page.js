@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
 import { fetchSearchResults } from "@/app/lib/api";
@@ -78,7 +78,9 @@ const SearchPage = ({ params }) => {
                   <span className="ml-1 text-gray-600">{item.rating}</span>
                 </div>
               </div>
-              <AddToCart id={item.id} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <AddToCart id={item.id} />
+              </Suspense>
             </div>
           </div>
         ))}

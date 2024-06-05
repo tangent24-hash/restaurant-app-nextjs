@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import Paper from "@mui/material/Paper";
 import Image from "next/image";
 import promobanner1 from "@/public/assets/foods/hero/promo-banner1.jpeg";

@@ -1,6 +1,6 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
-import Image from "next/legacy/image";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -8,54 +8,12 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import { Paper } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import AuthContext from "../authentication/AuthContext";
-import { redirect } from "next/navigation";
-
-const CartItem = styled(Paper)(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "repeat(5, 1fr)",
-  gap: "1rem",
-  alignItems: "center",
-  padding: "1rem",
-  marginBottom: "1rem",
-  borderBottom: "1px solid #e0e0e0",
-  "&:hover": {
-    backgroundColor: "#f5f5f5",
-  },
-  transition: "box-shadow 0.3s ease-in-out",
-  "&:hover": {
-    boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-  },
-  [theme.breakpoints.down("sm")]: {
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gridTemplateRows: "repeat(2, auto)",
-    padding: "1rem",
-    gap: "0.5rem",
-  },
-}));
-
-const CartContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
-  paddingLeft: theme.spacing(17),
-  paddingRight: theme.spacing(17),
-  [theme.breakpoints.down("sm")]: {
-    padding: theme.spacing(1),
-  },
-}));
+import styles from "./CartPage.module.css";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
-  const { user, loading } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (!user && !loading) {
-      redirect("/login");
-    }
-  }, [user, loading]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -117,10 +75,10 @@ const CartPage = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response?.status === 200) {
         const updatedCartItem = await response.json();
         setCartItems((prevCartItems) =>
-          prevCartItems.map((item) =>
+          prevCartItems?.map((item) =>
             item.id === cartItemId ? updatedCartItem : item
           )
         );
@@ -137,13 +95,13 @@ const CartPage = () => {
   };
 
   return (
-    <CartContainer>
+    <Box className={styles.cartContainer}>
       <Typography variant="h4" component="h1" gutterBottom>
         Shopping Cart
       </Typography>
 
-      {cartItems.map((item) => (
-        <CartItem key={item.id} elevation={3}>
+      {cartItems?.map((item) => (
+        <Paper key={item.id} elevation={3} className={styles.cartItem}>
           <Image src={item.food_image} alt={item.name} width={80} height={80} />
           <Typography>{item.food_name}</Typography>
           <Typography>${item.food_price.toFixed(2)}</Typography>
@@ -168,7 +126,7 @@ const CartPage = () => {
           >
             <DeleteIcon />
           </IconButton>
-        </CartItem>
+        </Paper>
       ))}
       {(cartItems.length === 0 && (
         <Typography variant="h5" sx={{ color: "darkslategray" }}>
@@ -188,7 +146,7 @@ const CartPage = () => {
             </Button>
           </Box>
         ))}
-    </CartContainer>
+    </Box>
   );
 };
 

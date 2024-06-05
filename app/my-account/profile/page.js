@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
-import getUserDetails from "@/app/lib/getUserDetails";
+import { fetchUserDetails } from "@/app/lib/user/api";
 import { toast } from "react-toastify";
 import Loading from "@/app/loading";
 
@@ -18,12 +18,12 @@ export default function Profile() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      const userDetails = await getUserDetails();
+    const getUserDetails = async () => {
+      const userDetails = await fetchUserDetails();
       setProfile(userDetails);
     };
 
-    fetchUserDetails();
+    getUserDetails();
   }, []);
 
   const handleEditToggle = () => {
@@ -39,7 +39,7 @@ export default function Profile() {
 
     try {
       // Update the profile
-      const updatedProfile = await getUserDetails("PUT", profile);
+      const updatedProfile = await fetchUserDetails("PUT", profile);
       if (!updatedProfile) {
         toast.error("Error updating profile");
       } else {

@@ -1,23 +1,20 @@
-"use client";
-
 import DashboardNavigation from "@/app/components/dashboard/dashboardNavigation";
-import { useContext, useEffect } from "react";
-import AuthContext from "../authentication/AuthContext";
 import { redirect } from "next/navigation";
+import { getUser } from "../api/auth";
+import { Suspense } from "react";
 
-const Layout = ({ children }) => {
-  let { user, loading } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (!user?.is_staff && !loading) {
-      redirect("/login");
-    }
-  }, [user, loading]);
+const Layout = async ({ children }) => {
+
+
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 pt-4">
       <div className="md:col-span-1">
-        <DashboardNavigation />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DashboardNavigation />
+        </Suspense>
       </div>
       <main className="md:col-span-3 p-3">{children}</main>
     </div>

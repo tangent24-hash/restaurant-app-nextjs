@@ -12,9 +12,10 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import AuthContext from "@/app/authentication/AuthContext";
-import { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+// import AuthContext from "@/app/authentication/AuthContext";
+// import { useEffect, useState } from "react";
+// import { toast } from "react-toastify";
+import { loginUser } from "../api/auth";
 
 function Copyright(props) {
   return (
@@ -42,7 +43,7 @@ const validationSchema = yup.object({
 });
 
 export default function SignInSide() {
-  let { loginUser, loginError } = useContext(AuthContext);
+  // let { loginUser, loginError } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -50,16 +51,16 @@ export default function SignInSide() {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      loginUser(values);
+    onSubmit: async (values) => {
+      await loginUser(values);
     },
   });
 
-  useEffect(() => {
-    if (loginError) {
-      toast.error(loginError);
-    }
-  }, [loginError]);
+  // useEffect(() => {
+  //   if (loginError) {
+  //     toast.error(loginError);
+  //   }
+  // }, [loginError]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,13 +99,13 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            {loginError ? (
+            {/* {loginError ? (
               <Typography variant="h5" color="error" sx={{ paddin: 1 }}>
                 {loginError}
               </Typography>
             ) : (
               ""
-            )}
+            )} */}
             <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"

@@ -1,4 +1,4 @@
-import getFoodItems from "@/app/lib/getFoodItems";
+import { fetchFoodItems } from "@/app/lib/foods/api";
 import AddToCart from "../food/AddToCart";
 import Link from "next/link";
 import LoadMore from "./loadMore";
@@ -30,14 +30,14 @@ export const FoodItem = ({ food = null }) => (
 );
 
 const FoodItems = async ({ category = null }) => {
-  let data = await getFoodItems(1, category);
+  let data = await fetchFoodItems(1, category);
   let foods = data?.results;
 
   return (
     <div className="mx-auto flex flex-col items-center px-4 py-10 md:container">
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4">
         {foods?.map((food) => (
-          <FoodItem key={food.id} food={food} />
+          <FoodItem key={food?.id} food={food} />
         ))}
       </div>
       {data?.next && (

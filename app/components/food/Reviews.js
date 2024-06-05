@@ -1,15 +1,11 @@
 "use client";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import { postReview, getFoodReviews } from "@/app/lib/api";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import styles
-import AuthContext from "@/app/authentication/AuthContext";
-import { useRouter } from "next/navigation";
+import { fetchFoodReviews, postReview } from "@/app/lib/foods/api";
+import { toast } from "react-toastify";
+import { getUser } from "@/app/api/auth";
 
 const Reviews = ({ initialReviews, initialUrl, foodId }) => {
-  const { user } = useContext(AuthContext);
-  const router = useRouter();
   const [reviewsData, setReviewsData] = useState(initialReviews);
   const [nextPage, setNextPage] = useState(initialReviews.next);
   const [prevPage, setPrevPage] = useState(initialReviews.previous);
@@ -21,6 +17,17 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
     reviewer: null,
   });
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    };
+
+    fetchUser();
+  }, []);
+
   useEffect(() => {
     setReviewsData(initialReviews);
     setNextPage(initialReviews.next);
@@ -28,7 +35,8 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
   }, [initialReviews]);
 
   const fetchReviews = async (url) => {
-    const newReviews = await getFoodReviews(url);
+    const newReviews = await fetchFoodReviews(url);
+
     setReviewsData(newReviews);
     setNextPage(newReviews.next);
     setPrevPage(newReviews.previous);
@@ -80,7 +88,7 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
     <div className="flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 p-4">
         <h3 className="text-2xl font-bold mb-4">Reviews</h3>
-        {reviewsData.results.map((review) => (
+        {reviewsData?.results.map((review) => (
           <div
             key={review.id}
             className="bg-white p-4 rounded-lg shadow-md mb-4 flex items-center"
@@ -202,7 +210,6 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
             </div>
           </form>
         )}
-        <ToastContainer />
       </div>
     </div>
   );

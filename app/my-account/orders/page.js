@@ -10,7 +10,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import getOrders from "@/app/lib/getOrders";
+import { fetchOrders } from "@/app/lib/orders/api";
 import Link from "next/link";
 
 const statusStyles = {
@@ -29,7 +29,7 @@ const OrdersPage = () => {
 
   useEffect(() => {
     const fetchInitialOrders = async () => {
-      const initialOrders = await getOrders();
+      const initialOrders = await fetchOrders();
       setOrders(initialOrders.results);
       setFilteredOrders(initialOrders.results);
       setPagination({ next: initialOrders.next, prev: initialOrders.previous });
@@ -72,7 +72,7 @@ const OrdersPage = () => {
     const match = pageUrl.match(/page=(\d+)/);
     if (match && match[1]) {
       const pageNumber = match[1];
-      let paginatedOrders = await getOrders(pageNumber);
+      let paginatedOrders = await fetchOrders(pageNumber);
       setOrders(paginatedOrders.results);
       if (pageNumber == 2) {
         paginatedOrders.previous += "&page=1";
@@ -187,4 +187,4 @@ const OrdersPage = () => {
   );
 };
 
-export default WithAuth(OrdersPage);
+export default OrdersPage

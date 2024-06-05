@@ -15,8 +15,9 @@ import Container from "@mui/material/Container";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import Paper from "@mui/material/Paper";
-import { useContext } from "react";
-import AuthContext from "@/app/authentication/AuthContext";
+// import { useContext } from "react";
+// import AuthContext from "@/app/authentication/AuthContext";
+import { signupUser } from "../api/auth";
 
 const validationSchema = yup.object({
   fullname: yup.string().required("Fullname is required"),
@@ -40,8 +41,6 @@ const validationSchema = yup.object({
 });
 
 const SignUp = () => {
-  const { signupUser } = useContext(AuthContext);
-
   const formik = useFormik({
     initialValues: {
       fullname: "",

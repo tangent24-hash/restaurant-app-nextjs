@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { FiGrid, FiPhone } from "react-icons/fi";
 
