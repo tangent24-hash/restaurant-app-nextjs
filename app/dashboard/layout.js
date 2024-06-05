@@ -1,14 +1,7 @@
-import DashboardNavigation from "@/app/components/dashboard/dashboardNavigation";
-import { redirect } from "next/navigation";
-import { getUser } from "../api/auth";
 import { Suspense } from "react";
-
+import DashboardNavigation from "../components/dashboard/dashboardNavigation";
 
 const Layout = async ({ children }) => {
-
-
-
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 pt-4">
       <div className="md:col-span-1">

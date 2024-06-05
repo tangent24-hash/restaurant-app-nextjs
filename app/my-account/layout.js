@@ -11,6 +11,7 @@ const Layout = ({ children }) => {
 
   if (!user) {
     redirect("/login");
+    return null;
   }
 
   return (

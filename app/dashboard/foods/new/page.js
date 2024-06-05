@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TextField, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import createFoodItem from "@/app/lib/createFoodItem";
+import { createFoodItem } from "@/app/lib/foods/api";
 
 const NewFoodItem = () => {
   const router = useRouter();

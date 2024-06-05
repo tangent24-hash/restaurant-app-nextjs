@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Typography, Grid, Box, Card, Divider } from "@mui/material";
-import getOrderDetails from "@/app/lib/getOrderDetails";
-import getUserAddress from "@/app/lib/getUserAddress";
+import { fetchOrderDetails } from "@/app/lib/orders/api";
+import { fetchUserAddress } from "@/app/lib/user/api";
 
 const OrderDetailsPage = ({ params }) => {
   const orderId = params.id;
@@ -10,16 +10,16 @@ const OrderDetailsPage = ({ params }) => {
   const [address, setAddress] = useState(null);
 
   useEffect(() => {
-    const fetchOrderDetails = async () => {
-      const details = await getOrderDetails(orderId);
+    const getOrderDetails = async () => {
+      const details = await fetchOrderDetails(orderId);
       setOrderDetails(details);
       if (details.address) {
-        const addressDetails = await getUserAddress(details.address);
+        const addressDetails = await fetchUserAddress(details.address);
         setAddress(addressDetails);
       }
     };
 
-    fetchOrderDetails();
+    getOrderDetails();
   }, [orderId]);
 
   if (!orderDetails || !address)

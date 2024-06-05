@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { TextField, Button, CircularProgress } from "@mui/material";
-import updateFoodDetails from "@/app/lib/updateFoodDetails";
+import { updateFoodItem } from "@/app/lib/foods/api";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import getFoodDetails from "@/app/lib/getFoodDetails";
@@ -60,7 +60,7 @@ const UpdateFoodItemPage = ({ params }) => {
         formData.append("image", foodItem.image);
       }
 
-      let res = await updateFoodDetails(id, formData); // Pass formData instead of foodItem
+      let res = await updateFoodItem(id, formData);
       if (res.id) {
         toast.success("Food item updated successfully!");
         router.push("/dashboard/foods");

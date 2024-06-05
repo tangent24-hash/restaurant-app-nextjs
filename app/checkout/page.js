@@ -44,10 +44,12 @@ const CheckoutPage = () => {
         setUser(userData);
         if (!userData) {
           router.push("/login");
+          return null;
         }
       } catch (error) {
         console.error("Error fetching user:", error);
         router.push("/login");
+        return null;
       } finally {
         setLoading(false);
       }
@@ -90,6 +92,7 @@ const CheckoutPage = () => {
         res = await response.json();
         toast.error("Error placing order:", res.error);
         router.push("/");
+        return null;
       }
     } else {
       const response = await submitOrder(selectedAddress.id, "cod");

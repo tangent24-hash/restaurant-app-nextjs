@@ -59,7 +59,48 @@ const logoutUser = async () => {
   }
 };
 
-async function refreshToken() {
+const fetchUser = async () => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/user/`,
+    {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response;
+};
+
+const getUser = async () => {
+  try {
+    let response = await fetchUser();
+
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    } else if (response.status === 401) {
+      // Token expired or invalid, try refreshing the token
+      await refreshToken();
+      response = await fetchUser();
+
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error("Unable to fetch user after token refresh");
+      }
+    } else {
+      throw new Error("Unable to fetch user");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return null;
+  }
+};
+
+const refreshToken = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/token/refresh/`,
     {
@@ -71,62 +112,8 @@ async function refreshToken() {
     }
   );
 
-  if (response.status === 200) {
-    console.log("Token refreshed successfully");
-  } else {
+  if (response.status !== 200) {
     throw new Error("Failed to refresh token");
-  }
-}
-
-async function fetchUser() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/user/`,
-    {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  return response;
-}
-
-const getUser = async () => {
-  try {
-    let response = await fetchUser();
-
-    if (response.status === 200) {
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } else if (response.status === 401) {
-      // Token expired or invalid, try refreshing the token
-      try {
-        const setCookieHeader = await refreshToken();
-
-        // Retry fetching the user details after refreshing the token
-        response = await fetchUser();
-
-        if (response.status === 200) {
-          const data = await response.json();
-
-          console.log(data);
-          return data;
-        } else {
-          console.log("Unable to fetch user");
-        }
-      } catch (refreshError) {
-        console.error("Failed to refresh token:", refreshError);
-        console.log("Unable to fetch user");
-      }
-    } else {
-      console.log("Unable to fetch user");
-    }
-  } catch (error) {
-    console.error("An error occurred:", error);
-    console.log("An unexpected error occurred. Please try again.");
   }
 };
 
