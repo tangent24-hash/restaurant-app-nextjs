@@ -1,18 +1,10 @@
 import React from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 
 const Loading = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CircularProgress color="inherit" />
-    </Box>
+    <div className="flex items-center justify-center h-screen">
+      <div className="text-2xl font-bold text-center">Loading...</div>
+    </div>
   );
 };
 

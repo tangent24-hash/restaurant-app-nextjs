@@ -1,14 +1,14 @@
-import { Box, Link } from "@mui/material";
-import NavBar from "./NavBar";
+import Link from "next/link";
+// import NavBar from "./NavBar";
 import { TopBar } from "./TopBar";
 import { Suspense } from "react";
 
 const Header = () => {
   return (
-    <Box>
+    <div>
       <TopBar />
 
-      <Box
+      {/* <Box
         padding={2}
         sx={{
           backgroundColor: "white",
@@ -18,15 +18,15 @@ const Header = () => {
           textAlign: "center",
           display: { md: "block" },
         }}
-      >
-        <Link href="/" sx={{ textDecoration: "none", color: "inherit" }}>
+      > */}
+        <Link href="/">
           Yummy Food
         </Link>
-      </Box>
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* </Box> */}
+      {/* <Suspense fallback={<div>Loading...</div>}>
         <NavBar></NavBar>
-      </Suspense>
-    </Box>
+      </Suspense> */}
+    </div>
   );
 };
 

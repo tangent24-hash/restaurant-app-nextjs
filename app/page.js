@@ -1,13 +1,13 @@
-import FoodItems from "@/app/components/home/foods";
+import React from "react";
 import HeroAndOfferSection from "./components/home/heroSection";
+import FoodItems from "./components/home/foods";
 
-const Page = () => {
+export default function Page() {
   return (
-    <div>
+    <React.Fragment>
       <HeroAndOfferSection />
       <FoodItems />
-    </div>
+    </React.Fragment>
   );
-};
+}
 
-export default Page;

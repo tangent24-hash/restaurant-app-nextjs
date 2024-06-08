@@ -9,11 +9,16 @@ import Footer from "./components/footer/footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+export const metadata = {
+  title: "YummyFood",
+  description: "Best food delivery service in town",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+        <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <Header />
             {children}
