@@ -41,10 +41,7 @@ export default function HeroAndOfferSection() {
             <Image
               src={item.img}
               alt={`Offer ${i + 1}`}
-              width={300}
-              height={300}
-              layout="responsive"
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
               className="rounded-lg"
             />
           </div>
@@ -60,8 +57,7 @@ function Item(props = null) {
       <Image
         src={props?.item.img}
         alt={props?.item.alt}
-        layout="responsive"
-        objectFit="cover"
+        style={{ objectFit: "cover" }}
       />
     </Paper>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import HeroAndOfferSection from "./components/home/heroSection";
 import FoodItems from "./components/home/foods";
 
-export default function Page() {
+export default async function Page() {
   return (
     <React.Fragment>
       <HeroAndOfferSection />
@@ -10,4 +10,3 @@ export default function Page() {
     </React.Fragment>
   );
 }
-

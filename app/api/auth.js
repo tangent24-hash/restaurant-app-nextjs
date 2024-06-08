@@ -65,18 +65,27 @@ const fetchUser = async () => {
     {
       method: "GET",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
     }
   );
   return response;
 };
 
+const refreshToken = async () => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/token/refresh/`,
+    {
+      method: "POST",
+      credentials: "include",
+    }
+  );
+  console.log(response);
+  if (response.status !== 200) {
+    throw new Error("Failed to refresh token");
+  }
+};
+
 const getUser = async () => {
   try {
-    let response = await fetchUser();
-
     if (response.status === 200) {
       const data = await response.json();
       return data;
@@ -97,23 +106,6 @@ const getUser = async () => {
   } catch (error) {
     console.error("An error occurred:", error);
     return null;
-  }
-};
-
-const refreshToken = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_ACCOUNT_API}/auth/token/refresh/`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  if (response.status !== 200) {
-    throw new Error("Failed to refresh token");
   }
 };
 

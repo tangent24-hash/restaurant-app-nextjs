@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import getFoodDetails from "@/app/lib/getFoodDetails";
 import AddToCart from "@/app/components/food/AddToCart";
@@ -16,7 +16,6 @@ export default async function ProductPage({ params }) {
   const initialUrl = `${process.env.NEXT_PUBLIC_FOOD_API}/reviews?food=${id}`;
   const initialReviews = await fetchFoodReviews(initialUrl);
 
-  
   return (
     <div className="container mx-auto p-6">
       <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
@@ -25,9 +24,11 @@ export default async function ProductPage({ params }) {
             src={product.image}
             alt={product.name}
             width={500}
-            height={500}
-            layout="responsive"
-            objectFit="cover"
+            height={400}
+            style={{
+              objectFit: "cover",
+              layout: "responsive",
+            }}
           />
         </div>
         <div className="w-full md:w-1/2 p-4">
