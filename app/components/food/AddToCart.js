@@ -19,7 +19,7 @@ const AddToCart = ({ id }) => {
       setUser(userData);
     };
     fetchUser();
-  }, [ fetchUser]);
+  }, [setUser]);
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);

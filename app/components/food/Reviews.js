@@ -26,7 +26,7 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
     };
 
     fetchUser();
-  }, [fetchUser]);
+  }, [setUser]);
 
   useEffect(() => {
     setReviewsData(initialReviews);
