@@ -14,6 +14,8 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 
 import { loginUser } from "../api/client-auth";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 function Copyright(props) {
   return (
@@ -41,6 +43,7 @@ const validationSchema = yup.object({
 });
 
 export default function SignInSide() {
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -49,10 +52,14 @@ export default function SignInSide() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      await loginUser(values);
+      const res = await loginUser(values);
+      if (res.status === 200) {
+        router.back();
+      } else {
+        toast.error(res.message || "Failed to login. Please try again.");
+      }
     },
   });
-
 
   return (
     <ThemeProvider theme={theme}>

@@ -7,9 +7,10 @@ const fetchUserFromAPI = async (accessToken) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      // Authorization: `Bearer ${accessToken}`,
     },
     credentials: "include",
+    cache: "no-store",
   });
 };
 
@@ -35,6 +36,7 @@ export async function GET() {
           headers: {
             "Content-Type": "application/json",
           },
+          // revalidate: 60,
           body: JSON.stringify({
             refresh: refreshToken.value,
           }),
@@ -44,7 +46,13 @@ export async function GET() {
 
       if (refreshResponse.status === 200) {
         const refreshData = await refreshResponse.json();
-        cookies().set("my-auth", refreshData?.access, { path: "/" });
+        cookies().set("my-auth", refreshData?.access, {
+          path: "/",
+          expires: new Date(refreshData?.access_expiration),
+          secure: true,
+          sameSite: "None",
+          httpOnly: true,
+        });
 
         // Retry fetching the user with the new access token
         response = await fetchUserFromAPI(refreshData?.access);
