@@ -1,5 +1,5 @@
 // Food Items
-import { getUser } from "@/app/api/auth";
+import { getUser } from "@/app/api/client-auth";
 
 
 

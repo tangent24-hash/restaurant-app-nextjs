@@ -3,7 +3,7 @@ import SideNav from "@/app/components/myaccount/sidenav";
 // import { useContext, useEffect } from "react";
 // import AuthContext from "../authentication/AuthContext";
 import { redirect } from "next/navigation";
-import { getUser } from "../api/auth";
+import { getUser } from "../api/client-auth";
 
 const Layout = ({ children }) => {
   // const { user, loading } = useContext(AuthContext);

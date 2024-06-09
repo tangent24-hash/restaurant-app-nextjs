@@ -1,15 +1,14 @@
 import React from "react";
 import HeroAndOfferSection from "./components/home/heroSection";
 import FoodItems from "./components/home/foods";
-import { getUser } from "./api/auth";
 
-export default async function Page() {
-  const user = await getUser();
+export default function Page() {
+
 
   return (
     <React.Fragment>
       <HeroAndOfferSection />
-      <FoodItems user={user} />
+      <FoodItems />
     </React.Fragment>
   );
 }

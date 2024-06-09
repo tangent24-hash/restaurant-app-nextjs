@@ -17,7 +17,7 @@ import { useFormik } from "formik";
 import Paper from "@mui/material/Paper";
 // import { useContext } from "react";
 // import AuthContext from "@/app/authentication/AuthContext";
-import { signupUser } from "../api/auth";
+import { signupUser } from "../api/client-auth";
 
 const validationSchema = yup.object({
   fullname: yup.string().required("Fullname is required"),

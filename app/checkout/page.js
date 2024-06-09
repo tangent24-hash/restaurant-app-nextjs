@@ -21,7 +21,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import CheckoutForm from "@/app/components/checkout/checkoutForm";
-import { getUser } from "../api/auth";
+import { getUser } from "../api/client-auth";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY

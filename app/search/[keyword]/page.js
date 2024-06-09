@@ -2,7 +2,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
-import { fetchSearchResults } from "@/app/lib/api";
+import { fetchSearchResults } from "@/app/lib/search/api";
 import Loading from "@/app/loading";
 import Link from "next/link";
 import AddToCart from "@/app/components/food/AddToCart";

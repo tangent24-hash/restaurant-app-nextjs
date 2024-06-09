@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { fetchFoodReviews, postReview } from "@/app/lib/foods/api";
 import { toast } from "react-toastify";
-import { getUser } from "@/app/api/auth";
+import { getUser } from "@/app/api/client-auth";
 
 const Reviews = ({ initialReviews, initialUrl, foodId }) => {
   const [reviewsData, setReviewsData] = useState(initialReviews);

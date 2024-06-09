@@ -1,5 +1,5 @@
 // Orders
-import { getUser } from "@/app/api/auth";
+import { getUser } from "@/app/api/client-auth";
 
 export const fetchOrders = async (pageNumnber = 1) => {
   let value;

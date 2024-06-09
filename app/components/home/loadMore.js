@@ -4,7 +4,7 @@ import { FoodItem } from "./foods";
 import { fetchFoodItems } from "@/app/lib/foods/fetchFoodItems";
 import { Button } from "@mui/material";
 
-const LoadMore = ({ user = null }) => {
+const LoadMore = () => {
   const [page, setPage] = useState(1);
   const [foodItems, setFoodItems] = useState([]);
   const [showButton, setShowButton] = useState(true);
@@ -26,7 +26,7 @@ const LoadMore = ({ user = null }) => {
     <>
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4 py-6">
         {foodItems.map((food) => (
-          <FoodItem key={food.id} food={food} user={user} />
+          <FoodItem key={food.id} food={food} />
         ))}
       </div>
 

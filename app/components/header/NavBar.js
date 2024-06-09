@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getUser, logoutUser } from "@/app/api/auth";
+import { getUser, logoutUser } from "@/app/api/client-auth";
 import getCategories from "@/app/lib/getCategories";
 import {
   FiShoppingCart,

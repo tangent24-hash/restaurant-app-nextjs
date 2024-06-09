@@ -1,5 +1,5 @@
 // User
-import { getUser } from "@/app/api/auth";
+import { getUser } from "@/app/api/client-auth";
 
 // Addresses
 

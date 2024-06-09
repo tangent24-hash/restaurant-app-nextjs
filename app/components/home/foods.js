@@ -24,12 +24,12 @@ export const FoodItem = ({ food = null, user = null }) => (
           <span className="ml-1 text-gray-600">{food.rating}</span>
         </div>
       </div>
-      <AddToCart id={food.id} user={user} />
+      <AddToCart id={food.id} />
     </div>
   </div>
 );
 
-const FoodItems = async ({ user = null, category = null }) => {
+const FoodItems = async ({ category = null }) => {
   let data = await fetchFoodItems(1, category);
   let foods = data?.results;
 
@@ -37,12 +37,12 @@ const FoodItems = async ({ user = null, category = null }) => {
     <div className="mx-auto flex flex-col items-center px-4 py-10 md:container">
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4">
         {foods?.map((food) => (
-          <FoodItem key={food?.id} food={food} user={user} />
+          <FoodItem key={food?.id} food={food} />
         ))}
       </div>
       {data?.next && (
         <Suspense fallback={<Loading />}>
-          <LoadMore user={user} />
+          <LoadMore />
         </Suspense>
       )}
     </div>

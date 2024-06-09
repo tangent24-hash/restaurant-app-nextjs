@@ -1,4 +1,4 @@
-import { getUser } from "../api/auth";
+import { getUser } from "../api/client-auth";
 
 export async function verifyEmail(key) {
   try {

@@ -1,24 +1,25 @@
 "use client";
 
+import { getUser } from "@/app/api/client-auth";
 import Loading from "@/app/loading";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-const AddToCart = ({ id, user = null }) => {
+const AddToCart = ({ id }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const userData = await getUser();
-  //     setUser(userData);
-  //   };
-  //   fetchUser();
-  // }, [setUser]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
+  }, [setUser]);
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
@@ -39,9 +40,7 @@ const AddToCart = ({ id, user = null }) => {
           cache: "no-store",
           credentials: "include",
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+
           body: JSON.stringify({ food: id, quantity: quantity }),
         }
       );

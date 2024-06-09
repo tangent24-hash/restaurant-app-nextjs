@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
-import { loginUser } from "../api/auth";
+import { loginUser } from "../api/client-auth";
 
 function Copyright(props) {
   return (
