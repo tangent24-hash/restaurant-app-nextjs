@@ -1,5 +1,4 @@
 // User
-import { getUser } from "@/app/api/client-auth";
 
 // Addresses
 
@@ -8,12 +7,6 @@ export const fetchAddresses = async () => {
   let allAddresses = [];
 
   try {
-    let user = await getUser();
-    console.log("user", user);
-    if (!user) {
-      return { results: null, error: "User not found" };
-    }
-
     while (url) {
       const response = await fetch(url, {
         credentials: "include",
@@ -35,10 +28,6 @@ export const fetchAddresses = async () => {
 
 export const fetchUserAddress = async (id) => {
   try {
-    let user = await getUser();
-    if (!user) {
-      return { address: null, error: "User not found" };
-    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_USER_API}/addresses/${id}`,
       {
@@ -61,10 +50,6 @@ export const fetchUserAddress = async (id) => {
 
 export const fetchUserDetails = async (method = "GET", payload = null) => {
   try {
-    const user = await getUser();
-    if (!user) {
-      return null;
-    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_USER_API}/mydetails`,
       {

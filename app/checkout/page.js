@@ -21,7 +21,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import CheckoutForm from "@/app/components/checkout/checkoutForm";
-import { getUser } from "../api/client-auth";
+import withAuth from "../authentication/withAuth";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -32,47 +32,22 @@ const CheckoutPage = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [clientSecret, setClientSecret] = useState("");
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const getAddresses = async () => {
       try {
-        const userData = await getUser();
-        setUser(userData);
-        if (!userData) {
-          router.push("/login");
-          return null;
-        }
+        let addresses = await fetchAddresses();
+        addresses = addresses.results;
+        setAddresses(addresses);
       } catch (error) {
-        console.error("Error fetching user:", error);
-        router.push("/login");
-        return null;
-      } finally {
-        setLoading(false);
+        toast.error("Error fetching addresses:", error);
       }
     };
 
-    fetchUser();
-  }, [router]);
-
-  useEffect(() => {
-    if (user) {
-      const fetchAddresses = async () => {
-        try {
-          let addresses = await fetchAddresses();
-          addresses = addresses.results;
-          setAddresses(addresses);
-        } catch (error) {
-          toast.error("Error fetching addresses:", error);
-        }
-      };
-
-      fetchAddresses();
-    }
-  }, [user]);
+    getAddresses();
+  }, []);
 
   const handlePayNow = async () => {
     if (!selectedAddress || !paymentMethod) {
@@ -137,10 +112,6 @@ const CheckoutPage = () => {
     clientSecret,
     appearance,
   };
-
-  if (loading) {
-    return <p>Loading...</p>; // Show loading state while fetching user data
-  }
 
   return (
     <Container className="my-8 mx-auto px-4 sm:px-6 lg:px-8">
@@ -248,4 +219,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default withAuth(CheckoutPage);

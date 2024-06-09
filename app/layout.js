@@ -8,6 +8,7 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./authentication/AuthContext";
 
 export const metadata = {
   title: "YummyFood",
@@ -20,10 +21,12 @@ export default function RootLayout({ children }) {
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <Header />
-            {children}
-            <Footer />
-            <ToastContainer />
+            <AuthProvider>
+              <Header />
+              {children}
+              <Footer />
+              <ToastContainer />
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

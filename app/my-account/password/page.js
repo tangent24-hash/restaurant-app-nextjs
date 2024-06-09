@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import zxcvbn from "zxcvbn";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import withAuth from "@/app/authentication/withAuth";
 
 const ChangePasswordPage = () => {
   const router = useRouter();
@@ -191,4 +192,4 @@ const ChangePasswordPage = () => {
   );
 };
 
-export default ChangePasswordPage;
+export default withAuth(ChangePasswordPage);

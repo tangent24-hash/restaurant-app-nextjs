@@ -1,5 +1,7 @@
+"use client";
 import { Suspense } from "react";
 import DashboardNavigation from "../components/dashboard/dashboardNavigation";
+import withStaff from "../authentication/withStaff";
 
 const Layout = async ({ children }) => {
   return (
@@ -14,4 +16,4 @@ const Layout = async ({ children }) => {
   );
 };
 
-export default Layout;
+export default withStaff(Layout);

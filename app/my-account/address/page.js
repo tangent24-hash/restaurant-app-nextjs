@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import withAuth from "@/app/authentication/withAuth";
 
 const AddressPage = () => {
   const [addresses, setAddresses] = useState([]);
@@ -58,4 +59,4 @@ const AddressPage = () => {
   );
 };
 
-export default AddressPage;
+export default withAuth(AddressPage);

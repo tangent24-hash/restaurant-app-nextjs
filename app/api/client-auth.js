@@ -1,4 +1,3 @@
-
 // import { cookies } from "next/headers";
 // import { NextResponse } from "next/server";
 
@@ -221,6 +220,7 @@ export const logoutUser = async () => {
   try {
     const response = await fetch("/api/auth/logout", {
       method: "POST",
+      credentials: "include",
     });
 
     if (response.ok) {
@@ -242,6 +242,7 @@ export const signupUser = async (values) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(values),
     });
 
@@ -256,7 +257,6 @@ export const signupUser = async (values) => {
   }
 };
 
-
 // Function to fetch user
 export const getUser = async () => {
   try {
@@ -265,6 +265,7 @@ export const getUser = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
 
     if (response.ok) {

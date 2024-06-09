@@ -1,4 +1,3 @@
-import { getUser } from "../api/client-auth";
 
 export async function verifyEmail(key) {
   try {
@@ -59,11 +58,11 @@ export const fetchOrders = async () => {
   let allOrders = [];
 
   try {
-    let user = await getUser();
-    console.log("User", user);
-    if (!user) {
-      return { results: [], error: "User not found" };
-    }
+    // let user = await getUser();
+    // console.log("User", user);
+    // if (!user) {
+    //   return { results: [], error: "User not found" };
+    // }
 
     while (url) {
       const response = await fetch(url, {

@@ -1,15 +1,10 @@
 // Orders
-import { getUser } from "@/app/api/client-auth";
+import { gtUser } from "@/app/api/client-auth";
 
 export const fetchOrders = async (pageNumnber = 1) => {
   let value;
 
   try {
-    let user = await getUser();
-
-    if (!user) {
-      return null;
-    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_FOOD_API}/orders?format=json&page=${pageNumnber}`,
       {
@@ -30,10 +25,6 @@ export const fetchOrders = async (pageNumnber = 1) => {
 
 export const fetchOrderDetails = async (id) => {
   try {
-    let user = await getUser();
-    if (!user) {
-      return { order: null };
-    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_FOOD_API}/orders/${id}`,
       {
@@ -54,11 +45,6 @@ export const fetchOrderDetails = async (id) => {
 
 export const updateOrderStatus = async (id, status) => {
   let value;
-
-  let user = await getUser();
-  if (!user) {
-    return null;
-  }
 
   await fetch(`${process.env.NEXT_PUBLIC_FOOD_API}/orders/${id}`, {
     cache: "no-store",

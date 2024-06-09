@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { toast } from "react-toastify";
 import styles from "./CartPage.module.css";
+import withAuth from "../authentication/withAuth";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -23,6 +24,9 @@ const CartPage = () => {
           {
             cache: "no-store",
             credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
         );
         const json = await response.json();
@@ -43,6 +47,9 @@ const CartPage = () => {
           cache: "no-store",
           method: "DELETE",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
@@ -150,4 +157,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default withAuth(CartPage);

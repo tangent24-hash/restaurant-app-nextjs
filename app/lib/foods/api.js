@@ -1,5 +1,4 @@
 // Food Items
-import { getUser } from "@/app/api/client-auth";
 
 
 
@@ -7,10 +6,7 @@ import { getUser } from "@/app/api/client-auth";
 export const createFoodItem = async (method, foodItem) => {
   let value;
   try {
-    let user = await getUser();
-    if (!user) {
-      return null;
-    }
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_FOOD_API}/foods?format=json`,
       {
@@ -39,10 +35,7 @@ export const updateFoodItem = async (id, foodItem) => {
   const isFormData = foodItem instanceof FormData;
 
   let value;
-  let user = await getUser();
-  if (!user) {
-    return null;
-  }
+
   await fetch(`${process.env.NEXT_PUBLIC_FOOD_API}/foods/${id}`, {
     cache: "no-store",
     method: "PATCH",
@@ -58,10 +51,7 @@ export const updateFoodItem = async (id, foodItem) => {
 // delete food item
 export const deleteFoodItem = async (id) => {
   let value;
-  let user = await getUser();
-  if (!user) {
-    return null;
-  }
+
   await fetch(`${process.env.NEXT_PUBLIC_FOOD_API}/foods/${id}`, {
     cache: "no-store",
     method: "DELETE",
@@ -77,10 +67,7 @@ export const deleteFoodItem = async (id) => {
 // Reviews
 export const postReview = async (reviewData) => {
   try {
-    let user = await getUser();
-    if (!user) {
-      return null;
-    }
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_FOOD_API}/reviews`,
       {

@@ -1,20 +1,25 @@
+"use client";
 import Link from "next/link";
-import { getUser, logoutUser } from "@/app/api/client-auth";
+
 import getCategories from "@/app/lib/getCategories";
-import {
-  FiShoppingCart,
-  FiPackage,
-  FiUser,
-  FiLogOut,
-  FiMenu,
-} from "react-icons/fi";
+import { FiShoppingCart, FiPackage, FiUser, FiLogOut } from "react-icons/fi";
 import { RiDashboardLine } from "react-icons/ri";
 import SearchBar from "@/app/components/food/SearchBar";
 import Drawer from "./Drawer";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "@/app/authentication/AuthContext";
 
-const NavBar = async () => {
-  const user = await getUser();
-  const categories = await getCategories();
+const NavBar = () => {
+  const [categories, setCategories] = useState([]);
+  const { user, logoutUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getCategories();
+      setCategories(data);
+    };
+    fetchCategories();
+  }, [setCategories]);
 
   return (
     <header style={{ backgroundColor: "darkslategrey" }}>

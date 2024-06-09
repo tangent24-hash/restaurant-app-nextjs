@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import { fetchFoodReviews, postReview } from "@/app/lib/foods/api";
 import { toast } from "react-toastify";
-import { getUser } from "@/app/api/client-auth";
+import AuthContext from "@/app/authentication/AuthContext";
 
 const Reviews = ({ initialReviews, initialUrl, foodId }) => {
   const [reviewsData, setReviewsData] = useState(initialReviews);
@@ -17,16 +17,7 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
     reviewer: null,
   });
 
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUser();
-      setUser(user);
-    };
-
-    fetchUser();
-  }, [setUser]);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     setReviewsData(initialReviews);

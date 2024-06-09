@@ -12,28 +12,9 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
-
-import { loginUser } from "../api/client-auth";
-import { useRouter } from "next/navigation";
+import AuthContext from "@/app/authentication/AuthContext";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        Curious Bangladesh
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
@@ -43,7 +24,7 @@ const validationSchema = yup.object({
 });
 
 export default function SignInSide() {
-  const router = useRouter();
+  let { loginUser, loginError } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -51,15 +32,16 @@ export default function SignInSide() {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      const res = await loginUser(values);
-      if (res.status === 200) {
-        router.back();
-      } else {
-        toast.error(res.message || "Failed to login. Please try again.");
-      }
+    onSubmit: (values) => {
+      loginUser(values);
     },
   });
+
+  useEffect(() => {
+    if (loginError) {
+      toast.error(loginError);
+    }
+  }, [loginError]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,13 +80,13 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            {/* {loginError ? (
+            {loginError ? (
               <Typography variant="h5" color="error" sx={{ paddin: 1 }}>
                 {loginError}
               </Typography>
             ) : (
               ""
-            )} */}
+            )}
             <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
@@ -159,7 +141,6 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>

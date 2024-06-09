@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Typography, Grid, Box, Card, Divider } from "@mui/material";
 import { fetchOrderDetails } from "@/app/lib/orders/api";
 import { fetchUserAddress } from "@/app/lib/user/api";
+import withAuth from "@/app/authentication/withAuth";
 
 const OrderDetailsPage = ({ params }) => {
   const orderId = params.id;
@@ -123,4 +124,4 @@ const OrderDetailsPage = ({ params }) => {
   );
 };
 
-export default OrderDetailsPage;
+export default withAuth(OrderDetailsPage);

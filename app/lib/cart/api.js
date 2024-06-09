@@ -1,14 +1,9 @@
 // Cart
-import { getUser } from "../auth/api";
 
 export const fetchCart = async () => {
   let value;
 
   try {
-    let user = await getUser();
-    if (!user) {
-      return null;
-    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_FOOD_API}/cart/?format=json`,
       {
@@ -30,10 +25,7 @@ export const fetchCartItems = async () => {
   let value;
 
   try {
-    let user = await getUser();
-    if (!user) {
-      return null;
-    }
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_FOOD_API}/cart_items?format=json`,
       {
@@ -54,10 +46,7 @@ export const fetchCartItems = async () => {
 
 export const removeCartItem = async (productId) => {
   let value;
-  let user = await getUser();
-  if (!user) {
-    return null;
-  }
+
   await fetch(`${process.env.NEXT_PUBLIC_FOOD_API}/cart_items/${productId}`, {
     cache: "no-store",
     method: "DELETE",
@@ -74,10 +63,7 @@ export const updateCartItemQuantity = async (cartItemId, newQuantity) => {
   }
 
   let value;
-  let user = await getUser();
-  if (!user) {
-    return null;
-  }
+
   await fetch(`${process.env.NEXT_PUBLIC_FOOD_API}/cart_items/${cartItemId}`, {
     cache: "no-store",
     credentials: "include",
