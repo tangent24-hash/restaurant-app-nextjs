@@ -12,9 +12,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
-// import AuthContext from "@/app/authentication/AuthContext";
-// import { useEffect, useState } from "react";
-// import { toast } from "react-toastify";
+
 import { loginUser } from "../api/auth";
 
 function Copyright(props) {
@@ -43,7 +41,6 @@ const validationSchema = yup.object({
 });
 
 export default function SignInSide() {
-  // let { loginUser, loginError } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -56,11 +53,6 @@ export default function SignInSide() {
     },
   });
 
-  // useEffect(() => {
-  //   if (loginError) {
-  //     toast.error(loginError);
-  //   }
-  // }, [loginError]);
 
   return (
     <ThemeProvider theme={theme}>
