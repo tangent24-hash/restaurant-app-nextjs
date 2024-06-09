@@ -1,35 +1,34 @@
 "use client";
 
 import Loading from "@/app/loading";
-// import AuthContext from "@/app/authentication/AuthContext";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { getUser } from "@/app/api/auth";
 
-const AddToCart = ({ id }) => {
+const AddToCart = ({ id, user = null }) => {
   const [quantity, setQuantity] = useState(1);
-  const [isAdding, setIsAdding] = useState(false); // Track add-to-cart operation state
-  const [user, setUser] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await getUser();
-      setUser(userData);
-    };
-    fetchUser();
-  }, [setUser]);
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const userData = await getUser();
+  //     setUser(userData);
+  //   };
+  //   fetchUser();
+  // }, [setUser]);
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
   };
 
   const addToCart = async () => {
-    setIsAdding(true); // Set loading state
+    setIsAdding(true);
     if (!user) {
-      toast.error("Please login to add items to cart."); // Display error toast
-      setIsAdding(false); // Reset loading state
+      toast.error("Please login to add items to cart.");
+      setIsAdding(false);
       return;
     }
     let msg;
@@ -48,16 +47,16 @@ const AddToCart = ({ id }) => {
       );
 
       if (response.status === 201) {
-        toast.success("Item added to cart successfully!"); // Display success toast
+        toast.success("Item added to cart successfully!");
       } else if (response.status === 400) {
         msg = await response.json();
         msg = msg.message;
-        toast.error(msg); // Display error toast
+        toast.error(msg);
       }
     } catch (error) {
-      toast.error("Failed to add item to cart. Please try again."); // Display error toast
+      toast.error("Failed to add item to cart. Please try again.");
     } finally {
-      setIsAdding(false); // Reset loading state
+      setIsAdding(false);
     }
   };
 

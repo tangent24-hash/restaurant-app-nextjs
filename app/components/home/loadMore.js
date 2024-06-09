@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import { FoodItem } from "./foods";
-import { fetchFoodItems } from "@/app/lib/foods/api";
+import { fetchFoodItems } from "@/app/lib/foods/fetchFoodItems";
 import { Button } from "@mui/material";
 
-const LoadMore = () => {
+const LoadMore = ({ user = null }) => {
   const [page, setPage] = useState(1);
   const [foodItems, setFoodItems] = useState([]);
   const [showButton, setShowButton] = useState(true);
@@ -26,7 +26,7 @@ const LoadMore = () => {
     <>
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4 py-6">
         {foodItems.map((food) => (
-          <FoodItem key={food.id} food={food} />
+          <FoodItem key={food.id} food={food} user={user} />
         ))}
       </div>
 

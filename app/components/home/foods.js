@@ -1,11 +1,11 @@
-import { fetchFoodItems } from "@/app/lib/foods/api";
+import { fetchFoodItems } from "@/app/lib/foods/fetchFoodItems";
 import AddToCart from "../food/AddToCart";
 import Link from "next/link";
 import LoadMore from "./loadMore";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
 
-export const FoodItem = ({ food = null }) => (
+export const FoodItem = ({ food = null, user = null }) => (
   <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
     <Link href={`/food/${food.id}`}>
       <img
@@ -24,12 +24,12 @@ export const FoodItem = ({ food = null }) => (
           <span className="ml-1 text-gray-600">{food.rating}</span>
         </div>
       </div>
-      <AddToCart id={food.id} />
+      <AddToCart id={food.id} user={user} />
     </div>
   </div>
 );
 
-const FoodItems = async ({ category = null }) => {
+const FoodItems = async ({ user = null, category = null }) => {
   let data = await fetchFoodItems(1, category);
   let foods = data?.results;
 
@@ -37,12 +37,12 @@ const FoodItems = async ({ category = null }) => {
     <div className="mx-auto flex flex-col items-center px-4 py-10 md:container">
       <div className="grid w-full max-w-[1150px] gap-6 md:grid-cols-4">
         {foods?.map((food) => (
-          <FoodItem key={food?.id} food={food} />
+          <FoodItem key={food?.id} food={food} user={user} />
         ))}
       </div>
       {data?.next && (
         <Suspense fallback={<Loading />}>
-          <LoadMore />
+          <LoadMore user={user} />
         </Suspense>
       )}
     </div>

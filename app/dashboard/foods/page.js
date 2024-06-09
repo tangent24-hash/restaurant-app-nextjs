@@ -1,6 +1,6 @@
 "use client";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchFoodItems } from "@/app/lib/foods/api";
+import { fetchFoodItems } from  "@/app/lib/foods/fetchFoodItems";
 import { Button, Container, Fab, Link } from "@mui/material";
 import { useEffect, useState } from "react";
 

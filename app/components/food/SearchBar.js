@@ -12,7 +12,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import { fetchSearchResults } from "@/app/lib/api";
+import { fetchSearchResults } from "@/app/lib/search/api";
 import useDebounce from "@/app/lib/useDebounce";
 
 const SearchContainer = styled(Box)(({ theme }) => ({
