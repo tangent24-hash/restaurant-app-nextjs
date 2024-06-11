@@ -170,6 +170,7 @@ const OrdersPage = () => {
         <Button
           variant="contained"
           disabled={!pagination.prev}
+          style={{ backgroundColor: "darkslategray", color: "white"}}
           onClick={() => handlePagination(pagination.prev)}
           className="shadow-md hover:shadow-lg"
         >
@@ -178,6 +179,7 @@ const OrdersPage = () => {
         <Button
           variant="contained"
           disabled={!pagination.next}
+          style={{ backgroundColor: "darkslategray", color: "white"}}
           onClick={() => handlePagination(pagination.next)}
           className="shadow-md hover:shadow-lg"
         >

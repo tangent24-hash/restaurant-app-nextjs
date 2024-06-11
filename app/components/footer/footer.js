@@ -44,7 +44,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="mb-16 bg-white md:mb-0">
+    <footer className="mb-16 mt-10 bg-white md:mb-0">
       <div className="mx-auto max-w-7xl px-4 py-10">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col md:flex-1">
@@ -99,7 +99,7 @@ const Footer = () => {
       <div className="bg-neutral-100">
         <div className="mx-auto max-w-7xl px-2 py-3">
           <div className="flex flex-col items-center justify-between gap-3 text-xs font-medium text-neutral-700 md:flex-row">
-            <p>{"copyright"}</p>
+            <p>{"Copyright 2024"}</p>
             <Link href="https://github.com/tangent24-hash" target="_blank">
               <BsGithub size="1.25rem" />
             </Link>

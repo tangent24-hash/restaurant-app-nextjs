@@ -1,6 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Typography, Grid, Box, Card, Divider } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Box,
+  Card,
+  Divider,
+  CircularProgress,
+} from "@mui/material";
 import { fetchOrderDetails } from "@/app/lib/orders/api";
 import { fetchUserAddress } from "@/app/lib/user/api";
 import withAuth from "@/app/authentication/withAuth";
@@ -13,20 +20,20 @@ const OrderDetailsPage = ({ params }) => {
   useEffect(() => {
     const getOrderDetails = async () => {
       const details = await fetchOrderDetails(orderId);
-      setOrderDetails(details);
-      if (details.address) {
-        const addressDetails = await fetchUserAddress(details.address);
-        setAddress(addressDetails);
+      setOrderDetails(details.order);
+      if (details?.order?.address) {
+        const addressDetails = await fetchUserAddress(details.order.address);
+        setAddress(addressDetails.address);
       }
     };
 
     getOrderDetails();
-  }, [orderId]);
+  }, [orderId, setOrderDetails, setAddress]);
 
   if (!orderDetails || !address)
     return (
       <div className="flex justify-center items-center h-screen">
-        Loading...
+        <CircularProgress color="inherit" thickness={6} size={30} />
       </div>
     );
 

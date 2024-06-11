@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signupUser = async (values) => {
-    const { fullname, fullname_bn, email, password, passwordConfirmation } = {
+    const { fullname, email, password, passwordConfirmation } = {
       ...values,
     };
 
@@ -67,7 +67,6 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({
           email: email,
           fullname: fullname,
-          fullname_bn: fullname_bn,
           password1: password,
           password2: passwordConfirmation,
         }),

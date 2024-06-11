@@ -1,11 +1,11 @@
 "use client";
 
 import AuthContext from "@/app/authentication/AuthContext";
-import Loading from "@/app/loading";
 import { Button } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const AddToCart = ({ id }) => {
   const { user } = useContext(AuthContext);
@@ -73,7 +73,7 @@ const AddToCart = ({ id }) => {
       >
         {isAdding ? (
           <span className="mr-2">
-            <Loading />
+            <CircularProgress color="error" size={20} thickness={6} />
           </span>
         ) : (
           <>

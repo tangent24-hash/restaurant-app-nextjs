@@ -1,5 +1,4 @@
 // Orders
-import { gtUser } from "@/app/api/client-auth";
 
 export const fetchOrders = async (pageNumnber = 1) => {
   let value;

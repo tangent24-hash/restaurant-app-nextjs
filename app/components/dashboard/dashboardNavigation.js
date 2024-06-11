@@ -4,8 +4,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useRouter, usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
-
 
 const DashboardNavigation = () => {
   const [selectedPage, setSelectedPage] = useState(""); // Default selected page
@@ -57,6 +55,4 @@ const DashboardNavigation = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(DashboardNavigation), {
-  ssr: false,
-});
+export default DashboardNavigation;

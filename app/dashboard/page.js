@@ -1,14 +1,36 @@
-import React, { Suspense } from "react";
-
-import { fetchFoods, fetchOrders } from "@/app/lib/api";
+"use client";
+import React, { useEffect, useState } from "react";
 import Graphs from "../components/dashboard/graphs";
+import withStaff from "../authentication/withStaff";
+import { fetchFoods, fetchOrders } from "@/app/lib/api";
+import Loading from "../loading";
 
-const Dashboard = async () => {
-  const foodsData = await fetchFoods();
-  const ordersData = await fetchOrders();
+const Dashboard = () => {
+  const [foods, setFoods] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const foods = foodsData?.results;
-  const orders = ordersData?.results;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const foodsData = await fetchFoods();
+        const ordersData = await fetchOrders();
+
+        setFoods(foodsData?.results || []);
+        setOrders(ordersData?.results || []);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <Loading />;
+  if (error) return <div>Error: {error}</div>;
 
   const orderDates = orders?.map((order) =>
     new Date(order?.created_date).toLocaleDateString()
@@ -111,17 +133,15 @@ const Dashboard = async () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Graphs
-          ordersChartData={ordersChartData}
-          ordersCountData={ordersCountData}
-          stockData={stockData}
-          revenueData={revenueData}
-          orderStatusData={orderStatusData}
-        />
-      </Suspense>
+      <Graphs
+        ordersChartData={ordersChartData}
+        ordersCountData={ordersCountData}
+        stockData={stockData}
+        revenueData={revenueData}
+        orderStatusData={orderStatusData}
+      />
     </>
   );
 };
 
-export default Dashboard;
+export default withStaff(Dashboard);

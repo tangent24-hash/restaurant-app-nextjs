@@ -22,10 +22,10 @@ export default function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <AuthProvider>
+              <ToastContainer />
               <Header />
               {children}
               <Footer />
-              <ToastContainer />
             </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

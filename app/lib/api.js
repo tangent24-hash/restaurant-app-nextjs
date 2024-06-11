@@ -1,4 +1,3 @@
-
 export async function verifyEmail(key) {
   try {
     const res = await fetch(
@@ -25,8 +24,6 @@ export async function verifyEmail(key) {
     return { success: false, error: "An error occurred while verifying email" };
   }
 }
-
-
 
 // Dashboard
 export const fetchFoods = async () => {
@@ -58,12 +55,6 @@ export const fetchOrders = async () => {
   let allOrders = [];
 
   try {
-    // let user = await getUser();
-    // console.log("User", user);
-    // if (!user) {
-    //   return { results: [], error: "User not found" };
-    // }
-
     while (url) {
       const response = await fetch(url, {
         credentials: "include",

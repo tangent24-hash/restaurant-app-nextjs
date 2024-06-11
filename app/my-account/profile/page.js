@@ -65,7 +65,11 @@ export default function Profile() {
         {!editMode ? (
           <>
             <div className="flex items-center space-x-4 mb-4">
-              <Avatar src={profile.profilePic || "/default-profile.png"}>
+              <Avatar
+                src={
+                  profile.profilePic || "/assets/avatars/avatar with crown.png"
+                }
+              >
                 {!profile.profilePic && profile.fullname[0]}
               </Avatar>
               <Typography variant="h5">{profile.fullname}</Typography>
@@ -81,7 +85,7 @@ export default function Profile() {
             </Typography>
             <Button
               variant="contained"
-              color="primary"
+              style={{ backgroundColor: "darkslategrey" }}
               startIcon={<EditIcon />}
               onClick={handleEditToggle}
               className="mt-4"
@@ -129,7 +133,7 @@ export default function Profile() {
             <Button
               type="submit"
               variant="contained"
-              color="primary"
+              style={{ backgroundColor: "darkslategrey" }}
               className="mt-4"
             >
               Save Changes

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import DashboardNavigation from "../components/dashboard/dashboardNavigation";
 import withStaff from "../authentication/withStaff";
 
-const Layout = async ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 pt-4">
       <div className="md:col-span-1">

@@ -17,7 +17,7 @@ import { useFormik } from "formik";
 import Paper from "@mui/material/Paper";
 import { useContext } from "react";
 import AuthContext from "@/app/authentication/AuthContext";
-// import { signupUser } from "../api/client-auth";
+import notWithAuth from "../authentication/notWithAuth";
 
 const validationSchema = yup.object({
   fullname: yup.string().required("Fullname is required"),
@@ -41,12 +41,11 @@ const validationSchema = yup.object({
 });
 
 const SignUp = () => {
-  const { signupUser } = useContext(AuthContext);
+  const { user, signupUser } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
       fullname: "",
-      fullname_bn: "",
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -70,8 +69,9 @@ const SignUp = () => {
           padding: 3,
         }}
         component={Paper}
+        elevation={6}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "darkslategrey" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -79,7 +79,7 @@ const SignUp = () => {
         </Typography>
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fullname"
                 name="fullname"
@@ -96,19 +96,7 @@ const SignUp = () => {
                 helperText={formik.touched.fullname && formik.errors.fullname}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                required
-                id="fullname_bn"
-                label="Fullname(বাংলা)"
-                name="fullname_bn"
-                autoComplete="fullname_bn"
-                value={formik.values.fullname_bn}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 required
@@ -187,13 +175,18 @@ const SignUp = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            color="warning"
+            sx={{ mt: 3, mb: 2, backgroundColor: "darkslategrey" }}
           >
             Sign Up
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link
+                href="/login"
+                variant="body1"
+                style={{ color: "darkslategrey" }}
+              >
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -204,4 +197,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default notWithAuth(SignUp);

@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import AuthContext from "@/app/authentication/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import notWithAuth from "../authentication/notWithAuth";
 
 const theme = createTheme();
 
@@ -23,7 +24,7 @@ const validationSchema = yup.object({
   password: yup.string().required("Required"),
 });
 
-export default function SignInSide() {
+const SignInSide = () => {
   let { loginUser, loginError } = useContext(AuthContext);
 
   const formik = useFormik({
@@ -45,7 +46,11 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        container
+        component="main"
+        sx={{ height: "100vh", marginTop: "5vh" }}
+      >
         <CssBaseline />
         <Grid
           item
@@ -54,7 +59,7 @@ export default function SignInSide() {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1460467820054-c87ab43e9b59?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1067&q=80)",
+              "url(https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -124,19 +129,28 @@ export default function SignInSide() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                color="warning"
+                sx={{ mt: 3, mb: 2, backgroundColor: "darkslategrey" }}
               >
                 Sign In
               </Button>
 
               <Grid container>
                 <Grid item xs>
-                  <Link href="/reset-password" variant="body2">
+                  <Link
+                    href="/reset-password"
+                    variant="body1"
+                    style={{ color: "darkslategrey" }}
+                  >
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/signup" variant="body2">
+                  <Link
+                    href="/signup"
+                    variant="body1"
+                    style={{ color: "darkslategrey" }}
+                  >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
@@ -147,4 +161,6 @@ export default function SignInSide() {
       </Grid>
     </ThemeProvider>
   );
-}
+};
+
+export default notWithAuth(SignInSide);
