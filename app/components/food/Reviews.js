@@ -58,8 +58,13 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
     formData.append("reviewer", user.id);
 
     try {
-      await postReview(formData);
-      toast.success("Review submitted successfully");
+      const res = await postReview(formData);
+
+      if (res.status === 201) {
+        toast.success("Review submitted successfully");
+      } else {
+        toast.error("Failed to submit review");
+      }
 
       setReviewData({
         image: null,
@@ -107,7 +112,8 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
           {prevPage && (
             <button
               onClick={() => fetchReviews(prevPage)}
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              style={{ backgroundColor: "darkslategray", color: "white" }}
+              className=" text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Previous
             </button>
@@ -115,7 +121,8 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
           {nextPage && (
             <button
               onClick={() => fetchReviews(nextPage)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              style={{ backgroundColor: "darkslategray", color: "white" }}
+              className=" text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Next
             </button>
@@ -194,7 +201,8 @@ const Reviews = ({ initialReviews, initialUrl, foodId }) => {
             <div className="mb-4">
               <button
                 type="submit"
-                className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                style={{ backgroundColor: "darkslategray", color: "white" }}
+                className=" text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Submit Review
               </button>
